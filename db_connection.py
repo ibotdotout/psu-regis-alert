@@ -20,6 +20,9 @@ class DbConnection():
         if dbCursor and dbCursor.count() > 0:
             return dbCursor
 
+    def remove(self, item):
+        self.db.remove(item)
+
     def insert_item(self, subject_code, email):
         item = {}
         item['subject_code'] = subject_code
