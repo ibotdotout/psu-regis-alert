@@ -18,28 +18,26 @@
   </script>
 </head>
 <body>
-  <center>
-      <div style="widht=500px">
+      <div style="widht=500px;text-align:center;">
         <div>
           <img src="static/how-to-get-url.png" alt="how to get url" style="width: 40%; height: 40%">
         </div>
-        <div>
           <br>
-          <form action="/insert" method="get">
-            url: <input type="text" name="url" style="width:470px"><br>
-            email: <input type="text" name="email" style="width:470px"><br>
-            <input type="submit" value="Submit">
-          </form>
-          <div style="widht=500px">
-          วิธีใช้<br>
-          1.เปิดหน้า sis ของวิชาที่ต้องการลงทะเทียนจากระบบค้นหาในหน้าแรกของ sis<br>
-          2. copy url ของหน้าวิชาที่ต้องการลงทะเบียน (ดังรูปใหญ่) มาใส่ในช่อง url<br>
-          3. กรอก Email ที่จะให้ทำการแจ้งเตือน<br>
-          4. กด Submit แล้วรอรับ email<br>
+          <div style="display:inline-block;text-align:left;margin:0 auto">
+            <form action="/insert" method="get">
+              url:     <input type="text" name="url" style="width:470px"><br>
+              email: <input type="text" name="email" style="width:470px"><br>
+              <center>
+                  <input type="submit" value="Submit">
+              </center>
+            </form>
+            วิธีใช้<br>
+            1.เปิดหน้า sis ของวิชาที่ต้องการลงทะเทียนจากระบบค้นหาในหน้าแรกของ sis<br>
+            2. copy url ของหน้าวิชาที่ต้องการลงทะเบียน (ดังรูปใหญ่) มาใส่ในช่อง url<br>
+            3. กรอก Email ที่จะให้ทำการแจ้งเตือน<br>
+            4. กด Submit แล้วรอรับ email<br>
           </div>
-        </div>
         <br>
       </div>
-</center>
 </body>
 </html>
