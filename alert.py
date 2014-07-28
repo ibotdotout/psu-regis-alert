@@ -18,7 +18,7 @@ class PsuRegisAlert():
     def _display_result(self, subject_id, subject_name, results):
             return subject_id + "\n" + subject_name + "\n" + '\n'.join(results)
 
-    def alert(self, subject_code, email):
+    def alert(self, subject_code):
         url = self.URL % subject_code
 
         result = self.regis_query.query(url)
