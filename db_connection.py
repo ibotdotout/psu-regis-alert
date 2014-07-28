@@ -15,6 +15,11 @@ class DbConnection():
         if not dbCursor and dbCursor.count() > 0:
             return dbCursor[0]
 
+    def query_all(self):
+        dbCursor = self.db.find().sort('_id', -1)
+        if not dbCursor and dbCursor.count() > 0:
+            return dbCursor
+
     def insert_item(self, subject_code, email):
         item = {}
         item['subject_code'] = subject_code
