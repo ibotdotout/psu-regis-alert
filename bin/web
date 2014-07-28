@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ "$DEBUG" = "False" ]
+then
+        gunicorn route:app --log-file=-
+else
+        python route.py
+fi
