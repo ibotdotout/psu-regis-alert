@@ -37,7 +37,7 @@ def query():
     items = db.query_all()
     if items:
         html = ["%s" % (i['subject_code']) for i in items]
-        return '\n'.join(html)
+        return '<br>'.join(html)
     else:
         return "Query Failed!!!"
 

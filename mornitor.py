@@ -2,7 +2,7 @@ import alert
 import db_connection
 
 
-db = db_connection.DBConnection()
+db = db_connection.DbConnection()
 
 for item in db.query_all():
     subject_code = item['subject_code']
