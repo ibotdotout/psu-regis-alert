@@ -22,8 +22,11 @@ def insert():
 def query():
     db = db_connection.DbConnection()
     items = db.query_all()
-    html = ["%s, %s" % (i['subject_code'], i['email']) for i in items]
-    return '\n'.join(html)
+    if items:
+        html = ["%s, %s" % (i['subject_code'], i['email']) for i in items]
+        return '\n'.join(html)
+    else:
+        return "Query Failed!!!"
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

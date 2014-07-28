@@ -12,12 +12,12 @@ class DbConnection():
 
     def query_last_item(self):
         dbCursor = self.db.find().sort('_id', -1).limit(1)
-        if not dbCursor and dbCursor.count() > 0:
+        if dbCursor and dbCursor.count() > 0:
             return dbCursor[0]
 
     def query_all(self):
         dbCursor = self.db.find().sort('_id', -1)
-        if not dbCursor and dbCursor.count() > 0:
+        if dbCursor and dbCursor.count() > 0:
             return dbCursor
 
     def insert_item(self, subject_code, email):
