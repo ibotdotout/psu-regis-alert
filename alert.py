@@ -22,17 +22,17 @@ class PsuRegisAlert():
         url = self.URL % subject_code
 
         result = self.regis_query.query(url)
-
-        message = self._display_result(*result)
-
-        if email:
-            self._noticeEMail(email, message)
+        subject_id, subject_name, room = result
+        if room:
+            self.message = self._display_result(*result)
+            return True
         else:
-            print message
-
+            self.message = "No room"
+            return False
 
 if __name__ == '__main__':
     email = None
     subject_code = 2557100048520119
     alert = PsuRegisAlert()
     alert.alert(subject_code, email)
+    print alert.message

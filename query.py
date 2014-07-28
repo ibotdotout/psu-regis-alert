@@ -25,12 +25,12 @@ class PsuRegisQuery():
     def _result_message(self, data):
         sec, reserved, study_group, regis, offer = data
         can_regis = ""
-        if regis < offer:
-            can_regis = "regisable" + "  " + reserved
-        if len(regis) < len(offer):
-            regis = "0" * (len(offer) - len(regis)) + regis
-        return \
-            "%s %s/%s %s %s" % (sec, regis, offer, study_group, can_regis)
+        if regis < offer and not reserved:
+            can_regis = "regisable"
+            if len(regis) < len(offer):
+                regis = "0" * (len(offer) - len(regis)) + regis
+            return \
+                "%s %s/%s %s %s" % (sec, regis, offer, study_group, can_regis)
 
     def _query_each_section(self, m, content):
         curr = m.end()
@@ -47,8 +47,12 @@ class PsuRegisQuery():
         result_section = \
             self.re_section.finditer(content[start:])
 
-        return [self._result_message(self._query_each_section(m, content))
-                for m in result_section]
+        results = []
+        for m in result_section:
+            x = self._result_message(self._query_each_section(m, content))
+            if x:
+                results.append(x)
+        return results
 
     def query(self, url):
         content = self._load_content_page(url)
