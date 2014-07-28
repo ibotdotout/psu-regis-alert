@@ -33,6 +33,6 @@ class PsuRegisAlert():
 
 if __name__ == '__main__':
     email = None
-    subject_code = 2556100048520119
+    subject_code = 2557100048520119
     alert = PsuRegisAlert()
     alert.alert(subject_code, email)
