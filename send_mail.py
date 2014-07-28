@@ -11,12 +11,13 @@ class SendMail():
             http://www.pythonforbeginners.com/code-snippets-source-code/using-python-to-send-email/
         """
         import smtplib
+        import os
         from email.MIMEMultipart import MIMEMultipart
         from email.MIMEText import MIMEText
         import ConfigParser
 
         config = ConfigParser.ConfigParser()
-        config.read('config.ini')
+        config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
 
         username = config.get('DEFAULT', 'username')
         password = config.get('DEFAULT', 'password')
