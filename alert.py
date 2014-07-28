@@ -12,8 +12,8 @@ class PsuRegisAlert():
     def __init__(self):
         self.regis_query = query.PsuRegisQuery()
 
-    def _noticeEMail(self, toaddr, message):
-        send_mail.SendMail.send(toaddr, message)
+    def _noticeEMail(self, toaddr, subject, message):
+        send_mail.SendMail.send(toaddr, subject, message)
 
     def _display_result(self, subject_id, subject_name, results):
             return subject_id + "\n" + subject_name + "\n" + '\n'.join(results)
@@ -24,9 +24,11 @@ class PsuRegisAlert():
         result = self.regis_query.query(url)
         subject_id, subject_name, room = result
         if room:
+            self.subject_id = subject_id
             self.message = self._display_result(*result)
             return True
         else:
+            self.subject_id = ""
             self.message = "No room"
             return False
 

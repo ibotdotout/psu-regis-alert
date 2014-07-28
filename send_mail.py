@@ -3,7 +3,7 @@
 
 class SendMail():
     @classmethod
-    def send(cls, toaddr, message):
+    def send(cls, toaddr, subject, message):
         """
         Provide gmail user name and password
         Credit :
@@ -27,7 +27,7 @@ class SendMail():
         msg = MIMEMultipart()
         msg['From'] = fromaddr
         msg['To'] = toaddr
-        msg['Subject'] = "[psuAlert] แจ้งเตือนลงวิชา xxx-xxx"
+        msg['Subject'] = subject
 
         body = message
 

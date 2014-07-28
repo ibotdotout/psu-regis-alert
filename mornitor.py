@@ -9,5 +9,6 @@ for item in db.query_all():
     email = item['email']
     regis_alert = alert.PsuRegisAlert()
     if regis_alert.alert(subject_code):
-        regis_alert._noticeEMail(email, regis_alert.message)
+        subject = "[psuAlert] แจ้งเตือนลงวิชา %s" % regis_alert.subject_id
+        regis_alert._noticeEMail(email, subject, regis_alert.message)
         db.remove(item)
