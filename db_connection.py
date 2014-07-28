@@ -27,5 +27,4 @@ class DbConnection():
         item = {}
         item['subject_code'] = subject_code
         item['email'] = email
-        print subject_code, email
         self.db.insert(item)
