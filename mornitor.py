@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 import alert
 import db_connection
 
