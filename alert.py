@@ -16,7 +16,8 @@ class PsuRegisAlert():
         send_mail.SendMail.send(toaddr, subject, message)
 
     def _display_result(self, subject_id, subject_name, results):
-            return subject_id + "\n" + subject_name + "\n" + '\n'.join(results)
+        return (subject_id + "\n" + subject_name + "\n"
+                + "sec " + "\nsec ".join(results))
 
     def alert(self, subject_code):
         url = self.URL % subject_code
@@ -34,7 +35,7 @@ class PsuRegisAlert():
 
 if __name__ == '__main__':
     email = None
-    subject_code = 2557100048520119
+    subject_code = 2557100114720119
     alert = PsuRegisAlert()
-    alert.alert(subject_code, email)
+    alert.alert(subject_code)
     print alert.message
