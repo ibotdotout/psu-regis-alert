@@ -25,7 +25,6 @@ def insert():
     regex_result = re_subject_code.search(url)
     if regex_result:
         subject_code = regex_result.group()
-        return "%s %s" % (subject_code, email)
         db.insert_item(subject_code, email)
         return "Done"
     else:
