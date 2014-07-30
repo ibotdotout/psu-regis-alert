@@ -31,15 +31,26 @@ def insert():
         return "Failed: Url Wrong"
 
 
-@app.route('/query')
-def query():
-    db = db_connection.DbConnection()
-    items = db.query_all()
+def display_items(items, date='date'):
     if items:
-        html = ["%s" % (i['subject_code']) for i in items]
+        html = ["%s %s" % (i[date], i['subject_code']) for i in items]
         return '<br>'.join(html)
     else:
         return "Query Failed!!!"
+
+
+@app.route('/queue')
+def query_queue():
+    db = db_connection.DbConnection()
+    items = db.query_queue_all()
+    return display_items(items)
+
+
+@app.route('/used')
+def query_used():
+    db = db_connection.DbConnection()
+    items = db.query_used_all()
+    return display_items(items, 'achived_date')
 
 
 if __name__ == '__main__':
