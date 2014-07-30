@@ -33,7 +33,8 @@ def insert():
 
 def display_items(items, date='date'):
     if items:
-        html = ["%s %s" % (i[date], i['subject_code']) for i in items]
+        html = ["%s %s" % (i.get(date, ""), i.get('subject_code', ""))
+                for i in items]
         return '<br>'.join(html)
     else:
         return "Query Failed!!!"
