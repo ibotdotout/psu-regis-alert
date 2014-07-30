@@ -28,7 +28,7 @@ class DbConnection():
         return self._query_all(self.USED)
 
     def remove(self, item):
-        item['achived_date'] = datetime.dateime.utcnow()
+        item['achived_date'] = datetime.datetime.utcnow()
         self._insert_item(item, self.USED)
         self.db.remove(item)
 
