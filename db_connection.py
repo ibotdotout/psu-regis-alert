@@ -28,7 +28,7 @@ class DbConnection():
         return self._query_all(self.USED)
 
     def remove(self, item):
-        self.db[self.USED].remove(item)
+        self.db[self.QUEUE].remove(item)
         item['achived_date'] = datetime.datetime.utcnow()
         self._insert_item(item, self.USED)
 
