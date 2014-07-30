@@ -1,36 +1,38 @@
 import pymongo
+import datetime
 
 
 class DbConnection():
+    QUEUE = 'queue'
+    USED = 'used'
+
     def __init__(self):
         dbHost = 'mongodb://localhost:27017'
         dbName = 'psuRegisAlert'
-        dbCollection = 'queue'
-        dbUsedCollection = 'used'
 
         connection = pymongo.MongoClient(dbHost)
-        self.db = connection[dbName][dbCollection]
-        self.db_used = connection[dbName][dbUsedCollection]
+        self.db = connection[dbName]
 
-    def query_last_item(self):
-        dbCursor = self.db.find().sort('_id', -1).limit(1)
-        if dbCursor and dbCursor.count() > 0:
-            return dbCursor[0]
-
-    def query_all(self):
-        dbCursor = self.db.find().sort('_id', -1)
+    def _query_all(self, collection):
+        dbCursor = self.db[collection].find()
         if dbCursor and dbCursor.count() > 0:
             return dbCursor
 
+    def _insert_item(self, item, collection):
+        self.db[collection].insert(item)
+
+    def query_queue_all(self):
+        return self._query_all(self.QUEUE)
+
+    def query_used_all(self):
+        return self._query_all(self.USED)
+
     def remove(self, item):
-        self._insert_used_item(item)
+        item['achived_date'] = datetime.dateime.utcnow()
+        self._insert_item(item, self.USED)
         self.db.remove(item)
 
-    def _insert_used_item(self, item):
-        self.db_used.insert(item)
-
     def insert_item(self, subject_code, email):
-        item = {}
-        item['subject_code'] = subject_code
-        item['email'] = email
-        self.db.insert(item)
+        item = {'subject_code': subject_code, 'email': email,
+                'date': datetime.datetime.utcnow()}
+        self._insert_item(item, self.QUEUE)
