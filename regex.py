@@ -8,7 +8,7 @@ class PsuRegex():
     pattern = {'subject_id': ('<td>', r'\d{3}-\d{3}'),
                'subject_name': ('><b>ชื่อภาษาอังกฤษ</b></td><td>',
                                 '.*', '</td>'),
-               'session': ('SECTION_NOLabel">', r'\d\d', '</span>'),
+               'section': ('SECTION_NOLabel">', r'\d\d', '</span>'),
                'reserved': ('RESERVEDLabel">', '.*', '</span>'),
                'study_group': ('STUDY_GROUPLabel">', '.*', '</span>'),
                'regis': ('NO_REGISTLabel">', r'\d{1,3}', '</span>'),
@@ -19,7 +19,7 @@ class PsuRegex():
         """ Regex Patterns """
         return self.pattern_form.format(start=start, re=re, end=end)
 
-    def compile_regex_suject_id(self):
+    def compile_regex_subject_id(self):
         subject_id_pattern = \
             self.helper_pattern(*self.pattern['subject_id'])
         return re.compile(subject_id_pattern)
@@ -30,7 +30,7 @@ class PsuRegex():
         return re.compile(subject_name_pattern)
 
     def compile_regex_section(self):
-        section_pattern = self.helper_pattern(*self.pattern['session'])
+        section_pattern = self.helper_pattern(*self.pattern['section'])
         return re.compile(section_pattern)
 
     def compile_regex_reserved(self):
@@ -41,7 +41,7 @@ class PsuRegex():
         study_group_pattern = self.helper_pattern(*self.pattern['study_group'])
         return re.compile(study_group_pattern)
 
-    def complie_regex_regis(self):
+    def compile_regex_regis(self):
         regis_pattern = self.helper_pattern(*self.pattern['regis'])
         return re.compile(regis_pattern)
 

@@ -4,12 +4,12 @@ import regex as rex
 class PsuRegisQuery():
     def __init__(self):
         regex = rex.PsuRegex()
-        self.re_subject_id = regex.compile_regex_suject_id()
+        self.re_subject_id = regex.compile_regex_subject_id()
         self.re_subject_name = regex.compile_regex_subject_name()
         self.re_section = regex.compile_regex_section()
         self.re_reserved = regex.compile_regex_reserved()
         self.re_study_group = regex.compile_regex_study_group()
-        self.re_regis = regex.complie_regex_regis()
+        self.re_regis = regex.compile_regex_regis()
         self.re_offer = regex.compile_regex_offer()
 
     def _load_content_page(self, url):
