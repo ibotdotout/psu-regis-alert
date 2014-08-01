@@ -4,6 +4,16 @@ import db_connection
 
 
 class DbConnectionTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.queue = db_connection.DbConnection.QUEUE
+        cls.used = db_connection.DbConnection.USED
+        cls.db_name = db_connection.DbConnection.DB_NAME
+        cls.subject_code = "xxx-xxx"
+        cls.date = "xxx"
+        cls.email = "test@hellotest.com"
+        cls.item = {'subject_code': cls.subject_code, 'date': cls.date,
+                    'email': cls.email}
 
     def helper_assert_args_mock(self, mock_obj, args_list):
         args = [i for name, args, kwargs in mock_obj.mock_calls for i
@@ -40,18 +50,11 @@ class DbConnectionTest(unittest.TestCase):
 
         return (mock_db, mock_collection)
 
-    def setUp(self):
-        self.subject_code = "xxx-xxx"
-        self.date = "xxx"
-        self.email = "test@hellotest.com"
-        self.item = {'subject_code': self.subject_code, 'date': self.date,
-                     'email': self.email}
-
     @mock.patch('pymongo.MongoClient')
     @mock.patch('datetime.datetime')
     def test_insert_item(self, mock_datetime, mock_mongo):
         # assgin
-        args_db = ['psuRegisAlert', 'queue']
+        args_db = [self.db_name, self.queue]
 
         mock_db, mock_collection = \
             self.helper_mock_db(mock_datetime, mock_mongo)
@@ -69,7 +72,7 @@ class DbConnectionTest(unittest.TestCase):
     @mock.patch('datetime.datetime')
     def test_remove(self, mock_datetime, mock_mongo):
         # assgin
-        args_db = ['psuRegisAlert', 'queue', 'used']
+        args_db = [self.db_name, self.queue, self.used]
         achived_item = self.item.copy()
         achived_item['achived_date'] = self.date
 
@@ -85,13 +88,15 @@ class DbConnectionTest(unittest.TestCase):
         mock_collection.remove.assert_called_once_with(self.item)
         mock_collection.insert.assert_called_once_with(achived_item)
 
-    @query_decorate(['psuRegisAlert', 'queue'])
+    @query_decorate([db_connection.DbConnection.DB_NAME,
+                    db_connection.DbConnection.QUEUE])
     def test_query_queue_all(self):
         # arrange
         db = db_connection.DbConnection()
         db.query_queue_all()
 
-    @query_decorate(['psuRegisAlert', 'used'])
+    @query_decorate([db_connection.DbConnection.DB_NAME,
+                    db_connection.DbConnection.USED])
     def test_query_used_all(self):
         # arrange
         db = db_connection.DbConnection()

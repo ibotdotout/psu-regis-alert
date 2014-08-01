@@ -5,13 +5,13 @@ import datetime
 class DbConnection():
     QUEUE = 'queue'
     USED = 'used'
+    DB_NAME = 'psuRegisAlert'
 
     def __init__(self):
         dbHost = 'mongodb://localhost:27017'
-        dbName = 'psuRegisAlert'
 
         connection = pymongo.MongoClient(dbHost)
-        self.db = connection[dbName]
+        self.db = connection[self.DB_NAME]
 
     def _query_all(self, collection):
         dbCursor = self.db[collection].find()
