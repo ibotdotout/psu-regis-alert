@@ -1,4 +1,9 @@
 # encoding: utf-8
+import smtplib
+import os
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+import ConfigParser
 
 
 class SendMail():
@@ -10,12 +15,6 @@ class SendMail():
             http://code.activestate.com/recipes/577371-sending-gmail-though-python-code/
             http://www.pythonforbeginners.com/code-snippets-source-code/using-python-to-send-email/
         """
-        import smtplib
-        import os
-        from email.MIMEMultipart import MIMEMultipart
-        from email.MIMEText import MIMEText
-        import ConfigParser
-
         config = ConfigParser.ConfigParser()
         config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
 
