@@ -8,6 +8,7 @@ import datetime
 db = db_connection.DbConnection()
 items = db.query_queue_all()
 if items:
+    print "#" * 79
     for item in items:
         subject_code, email = item['subject_code'], item['email']
         print "%s %s %s" % (datetime.datetime.utcnow(), subject_code,
@@ -20,3 +21,4 @@ if items:
             db.remove(item)
         else:
             print ""
+    print "#" * 79
