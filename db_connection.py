@@ -29,8 +29,9 @@ class DbConnection():
 
     def remove(self, item):
         self.db[self.QUEUE].remove(item)
-        item['achived_date'] = datetime.datetime.utcnow()
-        self._insert_item(item, self.USED)
+        _item = item.copy()
+        _item['achived_date'] = datetime.datetime.utcnow()
+        self._insert_item(_item, self.USED)
 
     def insert_item(self, subject_code, email):
         item = {'subject_code': subject_code, 'email': email,
