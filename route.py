@@ -32,9 +32,10 @@ def insert():
 
 
 def display_items(items, date='date'):
+    protected = lambda x: x[:4] + '*'*(len(x)-4) if len(x) >= 4 else ''
     if items:
-        html = ["%s %s" % (i.get(date, ""), i.get('subject_code', ""))
-                for i in items]
+        html = ["%s %s %s" % (i.get(date, ""), i.get('subject_code', ""),
+                protected(i.get('email'))) for i in items]
         return '<br>'.join(html)
     else:
         return "Query Failed!!!"
