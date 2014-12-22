@@ -1,0 +1,16 @@
+web:
+  build: .
+  # command: ./bin/web
+  command: python route.py
+  volumes:
+       - .:/app
+  links:
+   - db
+  ports:
+   - "5000:5000"
+db:
+  image: dockerfile/mongodb
+  ports:
+   - "27017:27017"
+  # volumes:
+       # - .:/data/db
