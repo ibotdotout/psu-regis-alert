@@ -19,31 +19,34 @@ class PsuRegisAlert():
         return (subject_id + "\n" + subject_name + "\n"
                 + "sec " + "\nsec ".join(results))
 
-    def alert(self, subject_code, sec_list=None):
+    def list_sec_rooms(self, sec_rooms):
+        list_sec = []
+        for k, v in sec_rooms.items():
+            if v:
+                list_sec.append(k)
+        return list_sec
+
+    def alert(self, subject_code):
         url = self.URL % subject_code
 
         result, sec_rooms = self.regis_query.query(url)
         subject_id, subject_name, has_room = result
 
         if has_room:
-            if sec_list:
-                has_wanted_room = any([sec_rooms[i] for i in sec_list])
-            else:
-                has_wanted_room = True
-
-        if has_wanted_room:
             self.subject_id = subject_id
             self.message = self._display_result(*result)
+            self.list_rooms = self.list_sec_rooms(sec_rooms)
             return True
         else:
             self.subject_id = ""
             self.message = "No room"
+            self.list_rooms = None
             return False
 
 if __name__ == '__main__':
     email = None
     subject_code = 2557200048520119
     alert = PsuRegisAlert()
-    # alert.alert(subject_code, "01,03,02")
-    alert.alert(subject_code)
+    if alert.alert(subject_code):
+        print alert.list_rooms
     print alert.message
