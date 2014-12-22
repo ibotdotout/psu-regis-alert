@@ -1,5 +1,6 @@
 import pymongo
 import datetime
+import os
 
 
 class DbConnection():
@@ -8,7 +9,9 @@ class DbConnection():
     DB_NAME = 'psuRegisAlert'
 
     def __init__(self):
-        dbHost = 'mongodb://localhost:27017'
+        dbHost = os.environ.get('DB_PORT', 'mongodb://localhost:27017')
+        if dbHost.startswith("tcp"):
+            dbHost = dbHost.replace("tcp", "mongodb")
 
         connection = pymongo.MongoClient(dbHost)
         self.db = connection[self.DB_NAME]
