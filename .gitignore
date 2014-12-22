@@ -2,6 +2,8 @@
 
 # My
 config.ini
+loffile
+db/*
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
