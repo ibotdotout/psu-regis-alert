@@ -15,7 +15,7 @@ if items:
         print "%s %s %s" % (datetime.datetime.utcnow(), subject_code,
                             email),
         regis_alert = alert.PsuRegisAlert()
-        if queried[subject_code]:
+        if subject_code in queried:
             regis_dict = queried[subject_code]
             if regis_dict.get('has_room', False):
                 print " done"
