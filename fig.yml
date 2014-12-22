@@ -8,14 +8,6 @@ web:
   ports:
    - "80:80"
 
-mornitor:
-  build: .
-  command: ./bin/moritor_loop
-  volumes:
-   - .:/app
-  links:
-   - db
-
 db:
   image: dockerfile/mongodb
   command: mongod --smallfiles
