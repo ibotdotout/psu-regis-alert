@@ -1,4 +1,5 @@
 import regex as rex
+import collections as coll
 
 
 class PsuRegisQuery():
@@ -22,11 +23,12 @@ class PsuRegisQuery():
     def _helper_search(self, x, y, start=None):
         return x.search(y[start:])
 
-    def _result_message(self, data):
+    def _result_message(self, data, rooms):
         sec, reserved, study_group, regis, offer = data
         can_regis = ""
         if regis < offer and not reserved:
             can_regis = "regisable"
+            rooms[sec] = True
             if len(regis) < len(offer):
                 regis = "0" * (len(offer) - len(regis)) + regis
             return \
@@ -48,11 +50,13 @@ class PsuRegisQuery():
             self.re_section.finditer(content[start:])
 
         results = []
+        rooms = coll.defaultdict(bool)
         for m in result_section:
-            x = self._result_message(self._query_each_section(m, content))
+            data = self._query_each_section(m, content)
+            x = self._result_message(data, rooms)
             if x:
                 results.append(x)
-        return results
+        return results, rooms
 
     def query(self, url):
         content = self._load_content_page(url)
@@ -63,8 +67,8 @@ class PsuRegisQuery():
             self._helper_search(self.re_subject_name,
                                 content, result_subject_id.end())
 
-        results = self._query_section_data(content,
-                                           result_subject_name.end())
+        results, rooms = \
+            self._query_section_data(content, result_subject_name.end())
 
         return (result_subject_id.group(),
-                result_subject_name.group(), results)
+                result_subject_name.group(), results), rooms
