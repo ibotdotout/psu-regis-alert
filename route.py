@@ -5,7 +5,9 @@ import re
 
 app = flask.Flask(__name__)
 subject_code_pattern = r"(?<=subject=)\d*(?=$)"
+sec_pattern = r"^(\d\d,)*\d\d$|^\*$"
 re_subject_code = re.compile(subject_code_pattern)
+re_sec_list = re.compile(sec_pattern)
 
 
 @app.route('/')
@@ -19,23 +21,30 @@ def insert():
     if flask.request.method == 'POST':
         url = flask.request.form['url']
         email = flask.request.form['email']
+        wanted_sec = flask.request.form('sec')
     else:
         url = flask.request.args.get('url')
         email = flask.request.args.get('email')
+        wanted_sec = flask.request.args.get('sec')
     regex_result = re_subject_code.search(url)
-    if regex_result:
+    regex_sec_match = re_sec_list.match(wanted_sec)
+    if regex_result and regex_sec_match:
         subject_code = regex_result.group()
-        db.insert_item(subject_code, email)
+        db.insert_item(subject_code, email, wanted_sec)
         return "Done"
-    else:
+    elif regex_result:
+        return "Failed: Sec Wrong"
+    elif regex_sec_match:
         return "Failed: Url Wrong"
+    else:
+        return "Failed: Url and Sec Wrong"
 
 
 def display_items(items, date='date'):
     protected = lambda x: x[:4] + '*'*(len(x)-4) if len(x) >= 4 else ''
     if items:
-        html = ["%s %s %s" % (i.get(date, ""), i.get('subject_code', ""),
-                protected(i.get('email'))) for i in items]
+        html = ["%s %s %s %s" % (i.get(date, ""), i.get('subject_code', ""),
+                protected(i.get('email')), i.get('sec', '')) for i in items]
         return '<br>'.join(html)
     else:
         return "Query Failed!!!"

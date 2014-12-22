@@ -36,7 +36,7 @@ class DbConnection():
         _item['achived_date'] = datetime.datetime.utcnow()
         self._insert_item(_item, self.USED)
 
-    def insert_item(self, subject_code, email):
-        item = {'subject_code': subject_code, 'email': email,
+    def insert_item(self, subject_code, email, sec='*'):
+        item = {'subject_code': subject_code, 'email': email, 'sec': sec,
                 'date': datetime.datetime.utcnow()}
         self._insert_item(item, self.QUEUE)
