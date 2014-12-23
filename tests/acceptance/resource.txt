@@ -2,7 +2,7 @@
 Library           Selenium2Library
 
 *** Variables ***
-${SERVER}         localhost:5000
+${SERVER}         localhost
 ${BROWSER}        phantomjs
 ${DELAY}          0
 ${HOME URL}       http://${SERVER}/
