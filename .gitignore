@@ -2,7 +2,7 @@
 
 # My
 config.ini
-loffile
+logfile
 db/*
 
 ### Python ###
