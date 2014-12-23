@@ -6,8 +6,8 @@ import datetime
 
 
 def regis_alert_via_mail(item, email, subject_code, message):
-        regis_alert._noticeEMail(email, subject, message)
-        db.remove(item)
+    regis_alert._noticeEMail(email, subject, message)
+    db.remove(item)
 
 
 def have_wanted_sec(wanted_sec, list_rooms):

@@ -30,7 +30,7 @@ class PsuRegisAlert():
         url = self.URL % subject_code
 
         result, sec_rooms = self.regis_query.query(url)
-        subject_id, subject_name, has_room = result
+        subject_id, _, has_room = result
 
         if has_room:
             self.subject_id = subject_id
