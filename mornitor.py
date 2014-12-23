@@ -5,7 +5,7 @@ import db_connection
 import datetime
 
 
-def regis_alert_via_mail(item, email, subject_code, message):
+def regis_alert_via_mail(item, email, subject, message):
     regis_alert._noticeEMail(email, subject, message)
     db.remove(item)
 
@@ -50,7 +50,7 @@ if items:
 
                 if have_wanted_sec(wanted_sec, regis_alert.list_rooms):
                     print " done",
-                    regis_alert_via_mail(item, email, subject_code, message)
+                    regis_alert_via_mail(item, email, subject, message)
             else:
                 queried[subject_code] = {'any_room': False}
             print ""
