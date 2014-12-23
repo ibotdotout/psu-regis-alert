@@ -4,10 +4,13 @@ import db_connection
 import re
 
 app = flask.Flask(__name__)
-subject_code_pattern = r"(?<=subject=)\d*(?=$)"
+
+subject_code_pattern = r"(?<=subject=)\d{16}(?=$)"
 sec_pattern = r"^(\d\d,)*\d\d$|^\*$"
+email_pattern = "(?i)^[\w._-]+?@[\w.-]+.\w+$"
 re_subject_code = re.compile(subject_code_pattern)
 re_sec_list = re.compile(sec_pattern)
+re_email = re.compile(email_pattern)
 
 
 @app.route('/')
@@ -27,17 +30,30 @@ def insert():
         email = flask.request.args.get('email')
         wanted_sec = flask.request.args.get('sec')
     regex_result = re_subject_code.search(url)
+    regex_email_match = re_email.match(email)
     regex_sec_match = re_sec_list.match(wanted_sec)
-    if regex_result and regex_sec_match:
+    result = "Failed:"
+    if regex_result and regex_sec_match and regex_email_match:
         subject_code = regex_result.group()
         db.insert_item(subject_code, email, wanted_sec)
-        return "Done"
-    elif regex_result:
-        return "Failed: Sec Wrong"
-    elif regex_sec_match:
-        return "Failed: Url Wrong"
+        result = "Done"
     else:
-        return "Failed: Url and Sec Wrong"
+        fail_count = 0
+        result = "Failed: "
+        if not regex_result:
+            result += "url"
+            fail_count += 1
+        if not regex_sec_match:
+            if fail_count > 0:
+                result += ", "
+            result += "sec"
+            fail_count += 1
+        if not regex_email_match:
+            if fail_count > 0:
+                result += ", "
+            result += "email"
+        result += " wrong"
+    return result
 
 
 def display_items(items, date='date'):
