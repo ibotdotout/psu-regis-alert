@@ -1,0 +1,17 @@
+*** Settings ***
+Resource          resource.txt
+
+
+*** Test Cases ***
+Valid Input
+    Open Browser To Home Page
+    Input URL     ${valid_url}
+    Input Sec     ${valid_sec}
+    Input Email   ${valid_email}
+    Submit Form
+    Insert Page Should Be Open and Display    Done
+
+Valid Insert
+    Go To Queue Page
+    Queue Page Should Display     2557200069070119
+    [Teardown]    Close Browser

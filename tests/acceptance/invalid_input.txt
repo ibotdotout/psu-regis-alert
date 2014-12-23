@@ -1,0 +1,28 @@
+*** Settings ***
+resource          resource.txt
+
+*** Test Cases ***
+Sec Failed
+    Open Browser To Home Page
+    Input URL     ${valid_url}
+    Input Sec     1,2,3
+    Input Email   ${valid_email}
+    Submit Form
+    Insert Page Should Be Open and Display    sec
+
+Email Failed
+    Go To Home Page
+    Input URL     ${valid_url}
+    Input Sec     ${valid_sec}
+    Input Email   fsfsfsfsf
+    Submit Form
+    Insert Page Should Be Open and Display    email
+
+Url Failed
+    Go To Home Page
+    Input URL     fsdfsfs
+    Input Sec     ${valid_sec}
+    Input Email   ${valid_email}
+    Submit Form
+    Insert Page Should Be Open and Display    url
+    [Teardown]    Close Browser

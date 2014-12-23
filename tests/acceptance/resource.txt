@@ -1,0 +1,61 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Variables ***
+${SERVER}         localhost:80
+${BROWSER}        Chrome
+${DELAY}          0
+${HOME URL}       http://${SERVER}/
+${HOME TITLE}     PSU-Regis-Alert
+${INSERT URL}     http://${SERVER}/insert
+${QUEUE URL}      http://${SERVER}/queue
+
+${valid_url}          https://sis-hatyai7.psu.ac.th/WebRegist2005/SubjectInfo.aspx?subject=2557200069070119
+${valid_email}        fdsfsdfsfl@gmail.com
+${valid_sec}          01,02,03
+
+*** Keywords ***
+Open Browser To Home Page
+    Open Browser    ${HOME URL}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Home Page Should Be Open
+
+Open Browser To Queue Page
+    Open Browser    ${QUERE URL}    ${BROWSER}
+    Maximize Browser Window
+
+Go To Home Page
+    Go to   ${HOME URL}
+    Home Page Should Be Open
+
+Go To Queue Page
+    Go to   ${QUEUE URL}
+
+Home Page Should Be Open
+    Title Should Be    ${HOME TITLE}
+
+Input URL
+    [Arguments]    ${url}
+    Input Text    url_field    ${url}
+
+Input Sec
+    [Arguments]    ${sec}
+    Input Text    sec_field    ${sec}
+
+Input Email
+    [Arguments]    ${email}
+    Input Text    email_field    ${email}
+
+Submit Form
+    Click Button    submit_button
+
+Insert Page Should Be Open And Display
+    [Arguments]    ${text}
+    Location Should Be    ${INSERT URL}
+    Page Should Contain    ${text}
+
+Queue Page Should Display
+    [Arguments]    ${text}
+    Location Should Be    ${QUEUE URL}
+    Page Should Contain    ${text}
