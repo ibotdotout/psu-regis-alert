@@ -12,8 +12,9 @@ class DbConnectionTest(unittest.TestCase):
         cls.subject_code = "xxx-xxx"
         cls.date = "xxx"
         cls.email = "test@hellotest.com"
+        cls.sec = "01,02,10"
         cls.item = {'subject_code': cls.subject_code, 'date': cls.date,
-                    'email': cls.email}
+                    'email': cls.email, 'sec': cls.sec}
 
     def helper_assert_args_mock(self, mock_obj, args_list):
         args = [i for name, args, kwargs in mock_obj.mock_calls for i
@@ -61,7 +62,7 @@ class DbConnectionTest(unittest.TestCase):
 
         # arrange
         db = db_connection.DbConnection()
-        db.insert_item(self.subject_code, self.email)
+        db.insert_item(self.subject_code, self.email, self.sec)
 
         # assert
         self.helper_assert_args_mock(mock_db, args_db)
