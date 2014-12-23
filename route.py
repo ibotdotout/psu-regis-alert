@@ -21,7 +21,7 @@ def insert():
     if flask.request.method == 'POST':
         url = flask.request.form['url']
         email = flask.request.form['email']
-        wanted_sec = flask.request.form('sec')
+        wanted_sec = flask.request.form['sec']
     else:
         url = flask.request.args.get('url')
         email = flask.request.args.get('email')
