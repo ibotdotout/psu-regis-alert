@@ -3,7 +3,7 @@ import datetime
 import os
 
 
-class DbConnection():
+class DbConnection(object):
     QUEUE = 'queue'
     USED = 'used'
     DB_NAME = 'psuRegisAlert'

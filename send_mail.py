@@ -6,7 +6,7 @@ from email.MIMEText import MIMEText
 import ConfigParser
 
 
-class SendMail():
+class SendMail(object):
     @classmethod
     def send(cls, toaddr, subject, message):
         """

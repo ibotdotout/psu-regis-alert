@@ -5,7 +5,7 @@ import send_mail
 import query
 
 
-class PsuRegisAlert():
+class PsuRegisAlert(object):
     URL = "https://sis-hatyai6.psu.ac.th/WebRegist2005/" \
           "SubjectInfo.aspx?subject=%s"
 

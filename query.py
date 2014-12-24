@@ -2,7 +2,7 @@ import regex as rex
 import collections as coll
 
 
-class PsuRegisQuery():
+class PsuRegisQuery(object):
     def __init__(self):
         regex = rex.PsuRegex()
         self.re_subject_id = regex.compile_regex_subject_id()

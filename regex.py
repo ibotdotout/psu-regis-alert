@@ -3,7 +3,7 @@
 import re
 
 
-class PsuRegex():
+class PsuRegex(object):
     pattern_form = "(?<={start}){re}(?={end})"
     pattern = {'subject_id': ('<td>', r'\d{3}-\d{3}'),
                'subject_name': ('><b>ชื่อภาษาอังกฤษ</b></td><td>',
