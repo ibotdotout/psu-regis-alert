@@ -12,7 +12,7 @@ class PsuRegisAlert(object):
     def __init__(self):
         self.regis_query = query.PsuRegisQuery()
 
-    def _noticeEMail(self, toaddr, subject, message):
+    def send_notice_mail(self, toaddr, subject, message):
         send_mail.SendMail.send(toaddr, subject, message)
 
     def _display_result(self, subject_id, subject_name, results):

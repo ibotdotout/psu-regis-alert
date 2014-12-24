@@ -6,7 +6,7 @@ import datetime
 
 
 def regis_alert_via_mail(item, email, subject, message):
-    regis_alert._noticeEMail(email, subject, message)
+    regis_alert.send_notice_mail(email, subject, message)
     db.remove(item)
 
 
