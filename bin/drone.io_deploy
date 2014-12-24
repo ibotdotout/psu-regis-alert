@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# dest : /root/drone_psu-regis-alert
+# rsync * <user>@<host>:/root/drone_psu-regis-alert
+
+mkdir -p /root/backup
+cp -r /root/psu-regis-alert/db /root/backup
+cp -r /root/psu-regis-alert/logfile /root/backup
+cp -r /root/drone_psu-regis-alert/* /root/psu-regis-alert
+docker exec -i psuregisalert_web_1 "./bin/reload_web"
