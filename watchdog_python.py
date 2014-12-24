@@ -14,7 +14,7 @@ def when_file_changed(filename):
     basename = os.path.basename(filename)
     if not basename.startswith("test_"):
         package = basename.replace(".py", "")
-        filename = filename.replace(basename, "tests/test_" + basename)
+        filename = filename.replace(basename, "tests/unit/test_" + basename)
     else:
         package = basename.replace(".py", "")
         package = package.replace("test_", "")
