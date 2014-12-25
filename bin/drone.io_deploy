@@ -4,7 +4,8 @@
 # rsync * <user>@<host>:/root/drone_psu-regis-alert
 
 mkdir -p /root/backup
-cp -r /root/psu-regis-alert/db /root/backup
+docker exec -d psuregisalert_db_1 sh -c 'mkdir -p backup/db_$(date +%Y-%m-%d_%Hh%Mm) && mongodump -d psuRegisAlert -o backup/db_$(date +%Y-%m-%d_%Hh%Mm)'
+docker cp psuregisalert_db_1:/data/backup/ /root
 cp -r /root/psu-regis-alert/logfile /root/backup
 cp -r /root/drone_psu-regis-alert/* /root/psu-regis-alert
 docker exec -i psuregisalert_web_1 "./bin/reload_web"
