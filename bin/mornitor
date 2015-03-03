@@ -1,7 +1,0 @@
-#!/bin/bash
-
-while true
-do
-    python mornitor.py | tee -a logfile
-    sleep 300
-done
