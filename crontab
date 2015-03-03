@@ -1,0 +1,2 @@
+*/5 * * * * root /app/bin/crontab_task.sh "python /app/mornitor.py" >> /var/log/cron.log 2>&1
+#An empty line is required at the end of this file for a valid cron file.

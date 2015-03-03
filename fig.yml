@@ -1,17 +1,23 @@
 web:
   build: .
-  command: ./bin/web
+  command: python route.py
   volumes:
    - .:/app
   links:
-   - db
+    - db:db
   ports:
-   - "80:80"
+   - "5000:5000"
+
+mornitor:
+  build: .
+  command: ./bin/cron
+  volumes:
+   - .:/app
+  links:
+    - db:db
 
 db:
   image: dockerfile/mongodb
   command: mongod --smallfiles
-  volumes:
-   - ./db:/data/db
   ports:
    - "27017:27017"

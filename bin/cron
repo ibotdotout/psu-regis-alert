@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cron && env > /root/env.sh && tail -f /var/log/cron.log
