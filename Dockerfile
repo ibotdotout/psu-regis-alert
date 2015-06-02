@@ -1,4 +1,4 @@
-FROM dockerfile/python
+FROM python
 
 RUN apt-get update
 RUN apt-get install -y phantomjs
