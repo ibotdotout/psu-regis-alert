@@ -1,7 +1,8 @@
 FROM python
 
 RUN apt-get update
-RUN apt-get install -y phantomjs
+RUN apt-get install -y cron
+#RUN apt-get install -y phantomjs
 
 ADD . /app
 WORKDIR /app
