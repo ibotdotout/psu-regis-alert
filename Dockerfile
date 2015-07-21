@@ -1,4 +1,4 @@
-FROM dockerfile/python
+FROM python
 
 RUN apt-get update -y && apt-get dist-upgrade -y
 
@@ -22,6 +22,9 @@ RUN cd /tmp/LINE && python setup.py install
 RUN rm -rf /tmp/LINE
 
 # phatomjs drvier to selenium testing
+RUN apt-get install -y phantomjs
+RUN apt-get update
+RUN apt-get install -y cron
 RUN apt-get install -y phantomjs
 
 # mount code into docker and install python packages

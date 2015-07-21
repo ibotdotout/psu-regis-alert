@@ -6,7 +6,7 @@ web:
   links:
     - db:db
   ports:
-   - "5000:5000"
+   - "80:5000"
 
 mornitor:
   build: .
@@ -17,7 +17,7 @@ mornitor:
     - db:db
 
 db:
-  image: dockerfile/mongodb
+  image: mongo
   command: mongod --smallfiles
   ports:
    - "27017:27017"
