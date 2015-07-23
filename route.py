@@ -2,6 +2,7 @@ import os
 import flask
 import db_connection
 import re
+import collections
 
 app = flask.Flask(__name__)
 
@@ -18,49 +19,61 @@ def index():
     return flask.render_template('index.html')
 
 
+def get_parametes(request):
+    if request.method == 'POST':
+        form = request.form
+    else:
+        form = request.args
+
+    param_names = ['url', 'email', 'sec', 'line_id']
+    Params = collections.namedtuple('Params', param_names)
+    params = Params._make([form.get(name) for name in param_names])
+    return params
+
+
+def verify_parmas(params):
+    regex_result = re_subject_code.search(params.url)
+    regex_email_match = re_email.match(params.email)
+    regex_sec_match = re_sec_list.match(params.sec)
+
+    return [regex_result, regex_sec_match, regex_email_match]
+
+
+def _insert_to_db(params):
+    db = db_connection.DbConnection()
+    regex_result = re_subject_code.search(params.url)
+    subject_code = regex_result.group()
+    db.insert_item(subject_code, params.email, params.sec)
+
+
 @app.route('/insert', methods=['GET', 'POST'])
 def insert():
-    db = db_connection.DbConnection()
-    if flask.request.method == 'POST':
-        url = flask.request.form['url']
-        email = flask.request.form['email']
-        wanted_sec = flask.request.form['sec']
-    else:
-        url = flask.request.args.get('url')
-        email = flask.request.args.get('email')
-        wanted_sec = flask.request.args.get('sec')
-    regex_result = re_subject_code.search(url)
-    regex_email_match = re_email.match(email)
-    regex_sec_match = re_sec_list.match(wanted_sec)
-    result = "Failed:"
-    if regex_result and regex_sec_match and regex_email_match:
-        subject_code = regex_result.group()
-        db.insert_item(subject_code, email, wanted_sec)
+    params = get_parametes(flask.request)
+    verify_results = verify_parmas(params)
+
+    if all(verify_results):
+        _insert_to_db(params)
         result = "Done"
     else:
-        fail_count = 0
-        result = "Failed: "
-        if not regex_result:
-            result += "url"
-            fail_count += 1
-        if not regex_sec_match:
-            if fail_count > 0:
-                result += ", "
-            result += "sec"
-            fail_count += 1
-        if not regex_email_match:
-            if fail_count > 0:
-                result += ", "
-            result += "email"
-        result += " wrong"
+        names = ["url", "sec", "email"]
+        error_msg = [name for i, name in zip(verify_results, names) if not i]
+        result = "Failed: " + ",".join(error_msg) + " wrong"
+
     return result
 
 
 def display_items(items, date='date'):
-    protected = lambda x: x[:4] + '*'*(len(x)-4) if len(x) >= 4 else ''
+    def protected(x):
+        return x[:4] + '*' * (len(x) - 4) if len(x) >= 4 else ''
+
     if items:
-        html = ["%s %s %s %s" % (i.get(date, ""), i.get('subject_code', ""),
-                protected(i.get('email')), i.get('sec', '')) for i in items]
+        html = [
+            "%s %s %s %s" %
+            (i.get(
+                date, ""), i.get(
+                'subject_code', ""), protected(
+                i.get('email')), i.get(
+                    'sec', '')) for i in items]
         return '<br>'.join(html)
     else:
         return "Query Failed!!!"
