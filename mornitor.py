@@ -10,7 +10,7 @@ def regis_notice(item, email, line_id, subject, message):
     if email:
         mail_notic(item, email, subject, message)
     if line_id:
-        line_notice(item, line_id, message)
+        line_notice(item, line_id, subject + '\n' + message)
 
 
 def mail_notic(item, email, subject, message):
@@ -43,30 +43,28 @@ if items:
         email = item.get('email', '')
         wanted_sec = item.get('sec', '*')
 
-        print "%s %s %s %s" % (datetime.datetime.utcnow(), subject_code,
-                               email, wanted_sec),
+        print "%s %s %s %s %s" % (datetime.datetime.utcnow(), subject_code,
+                                  wanted_sec, email, line_id),
+
         regis_alert = alert.PsuRegisAlert()
         if subject_code in queried:
             regis_dict = queried[subject_code]
             if regis_dict.get('any_room', False):
                 if have_wanted_sec(wanted_sec, regis_dict['list_rooms']):
                     print " done",
-                    regis_notice(
-                        item,
-                        email,
-                        line_id,
-                        regis_dict['subject'],
-                        regis_dict['message'])
+                    regis_notice(item, email, line_id,
+                                 regis_dict['subject'], regis_dict['message'])
             print ""
         else:
             if regis_alert.alert(subject_code):
                 subject = \
                     "[psuAlert] แจ้งเตือนลงวิชา %s" % regis_alert.subject_id
                 message = regis_alert.message
-                queried[subject_code] = {'any_room': True,
-                                         'subject': subject,
-                                         'list_rooms': regis_alert.list_rooms,
-                                         'message': message}
+                queried[subject_code] = {
+                    'any_room': True,
+                    'subject': subject,
+                    'list_rooms': regis_alert.list_rooms,
+                    'message': message}
 
                 if have_wanted_sec(wanted_sec, regis_alert.list_rooms):
                     print " done",
