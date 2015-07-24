@@ -13,6 +13,7 @@ ${QUEUE URL}      http://${SERVER}/queue
 ${valid_url}          https://sis-hatyai7.psu.ac.th/WebRegist2005/SubjectInfo.aspx?subject=2557200069070119
 ${valid_email}        fdsfsdfsfl@gmail.com
 ${valid_sec}          01,02,03
+${valid_line_id}      psuregisalert
 
 *** Keywords ***
 Open Browser To Home Page
@@ -46,6 +47,10 @@ Input Sec
 Input Email
     [Arguments]    ${email}
     Input Text    email_field    ${email}
+
+Input Line
+    [Arguments]    ${line_id}
+    Input Text    line_id_field    ${line_id}
 
 Submit Form
     Click Button    submit_button

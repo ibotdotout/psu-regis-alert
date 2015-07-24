@@ -18,6 +18,13 @@ Email Failed
     Submit Form
     Insert Page Should Be Open and Display    email
 
+None Email and Line Input
+    Go To Home Page
+    Input URL     ${valid_url}
+    Input Sec     ${valid_sec}
+    Submit Form
+    Insert Page Should Be Open and Display    line
+
 Url Failed
     Go To Home Page
     Input URL     fsdfsfs

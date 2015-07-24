@@ -3,11 +3,19 @@ Resource          resource.txt
 
 
 *** Test Cases ***
-Valid Input
+Valid Email Input
     Open Browser To Home Page
     Input URL     ${valid_url}
     Input Sec     ${valid_sec}
     Input Email   ${valid_email}
+    Submit Form
+    Insert Page Should Be Open and Display    Done
+
+Valid Line Input
+    Open Browser To Home Page
+    Input URL     ${valid_url}
+    Input Sec     ${valid_sec}
+    Input Line    ${valid_line_id}
     Submit Form
     Insert Page Should Be Open and Display    Done
 
