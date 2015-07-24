@@ -69,11 +69,11 @@ def display_items(items, date='date'):
 
     if items:
         html = [
-            "%s %s %s %s" %
+            "%s %s %s %s %s" %
             (i.get(
                 date, ""), i.get(
                 'subject_code', ""), protected(
-                i.get('email')), i.get(
+                i.get('email')), protected(i.get('line_id')), i.get(
                     'sec', '')) for i in items]
         return '<br>'.join(html)
     else:
