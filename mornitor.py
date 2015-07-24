@@ -3,10 +3,23 @@
 import alert
 import db_connection
 import datetime
+from line_client import Line
 
 
-def regis_alert_via_mail(item, email, subject, message):
+def regis_notice(item, email, line_id, subject, message):
+    if email:
+        mail_notic(item, email, subject, message)
+    if line_id:
+        line_notice(item, line_id, message)
+
+
+def mail_notic(item, email, subject, message):
     regis_alert.send_notice_mail(email, subject, message)
+    db.remove(item)
+
+
+def line_notice(item, line_id, message):
+    line.send(line_id, message)
     db.remove(item)
 
 
@@ -21,10 +34,13 @@ def have_wanted_sec(wanted_sec, list_rooms):
 db = db_connection.DbConnection()
 items = db.query_queue_all()
 queried = {}
+line = Line()
 if items:
     print "#" * 79
     for item in items:
-        subject_code, email = item['subject_code'], item['email']
+        subject_code = item['subject_code']
+        line_id = item.get('line_id', '')
+        email = item.get('email', '')
         wanted_sec = item.get('sec', '*')
 
         print "%s %s %s %s" % (datetime.datetime.utcnow(), subject_code,
@@ -35,8 +51,12 @@ if items:
             if regis_dict.get('any_room', False):
                 if have_wanted_sec(wanted_sec, regis_dict['list_rooms']):
                     print " done",
-                    regis_alert_via_mail(item, email, regis_dict['subject'],
-                                         regis_dict['message'])
+                    regis_notice(
+                        item,
+                        email,
+                        line_id,
+                        regis_dict['subject'],
+                        regis_dict['message'])
             print ""
         else:
             if regis_alert.alert(subject_code):
@@ -50,7 +70,7 @@ if items:
 
                 if have_wanted_sec(wanted_sec, regis_alert.list_rooms):
                     print " done",
-                    regis_alert_via_mail(item, email, subject, message)
+                    regis_notice(item, email, line_id, subject, message)
             else:
                 queried[subject_code] = {'any_room': False}
             print ""

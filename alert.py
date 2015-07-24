@@ -6,7 +6,7 @@ import query
 
 
 class PsuRegisAlert(object):
-    URL = "https://sis-hatyai6.psu.ac.th/WebRegist2005/" \
+    URL = "https://sis-hatyai3.psu.ac.th/WebRegist2005/" \
           "SubjectInfo.aspx?subject=%s"
 
     def __init__(self):
@@ -16,8 +16,13 @@ class PsuRegisAlert(object):
         send_mail.SendMail.send(toaddr, subject, message)
 
     def _display_result(self, subject_id, subject_name, results):
-        return (subject_id + "\n" + subject_name + "\n"
-                + "sec " + "\nsec ".join(results))
+        return (
+            subject_id +
+            "\n" +
+            subject_name +
+            "\n" +
+            "sec " +
+            "\nsec ".join(results))
 
     def list_sec_rooms(self, sec_rooms):
         list_sec = []
