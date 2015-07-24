@@ -4,7 +4,7 @@
 [![Build
 Status](https://travis-ci.org/ibotdotout/psu-regis-alert.svg?branch=master)](https://travis-ci.org/ibotdotout/psu-regis-alert)
 [![Code
-Health](https://landscape.io/github/ibotdotout/psu-regis-alert/master/landscape.svg?style=flat-square)](https://landscape.io/github/ibotdotout/psu-regis-alert/master)
+Health](https://landscape.io/github/ibotdotout/psu-regis-alert/master/landscape.svg?style=flat)](https://landscape.io/github/ibotdotout/psu-regis-alert/master)
 
 
 เผื่อใครลงทะเบียนไม่ทัน   
