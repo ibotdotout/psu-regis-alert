@@ -14,11 +14,6 @@ re_sec_list = re.compile(sec_pattern)
 re_email = re.compile(email_pattern)
 
 
-@app.route('/')
-def index():
-    return flask.render_template('index.html')
-
-
 def get_parametes(request):
     if request.method == 'POST':
         form = request.form
@@ -47,6 +42,35 @@ def _insert_to_db(params):
     db.insert_item(subject_code, params.email, params.line_id, params.sec)
 
 
+def display_items(items, date='date'):
+
+    def protected(x, is_protect=True):
+        if is_protect:
+            x = x[:4] + '*' * (len(x) - 4) if len(x) >= 4 else ''
+        return x
+
+    def line_template(item, date):
+        names = [date, 'subject_code', 'sec', 'email', 'line_id']
+        protect_list = [False, False, False, True, True]
+        values = [str(item.get(name, "")) for name in names]
+        values = [protected(val, is_protect)
+                  for val, is_protect in zip(values, protect_list)]
+        return " ".join(values)
+
+    display = "Query Failed!!!"
+
+    if items:
+        html = [line_template(i, date) for i in items]
+        display = '<br>'.join(html)
+
+    return display
+
+
+@app.route('/')
+def index():
+    return flask.render_template('index.html')
+
+
 @app.route('/insert', methods=['GET', 'POST'])
 def insert():
     params = get_parametes(flask.request)
@@ -63,23 +87,6 @@ def insert():
     return result
 
 
-def display_items(items, date='date'):
-    def protected(x):
-        return x[:4] + '*' * (len(x) - 4) if len(x) >= 4 else ''
-
-    if items:
-        html = [
-            "%s %s %s %s %s" %
-            (i.get(
-                date, ""), i.get(
-                'subject_code', ""), protected(
-                i.get('email')), protected(i.get('line_id')), i.get(
-                    'sec', '')) for i in items]
-        return '<br>'.join(html)
-    else:
-        return "Query Failed!!!"
-
-
 @app.route('/queue')
 def query_queue():
     db = db_connection.DbConnection()
@@ -92,7 +99,6 @@ def query_used():
     db = db_connection.DbConnection()
     items = db.query_used_all()
     return display_items(items, 'achived_date')
-
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
