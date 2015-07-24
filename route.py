@@ -36,7 +36,8 @@ def verify_parmas(params):
     regex_email_match = re_email.match(params.email)
     regex_sec_match = re_sec_list.match(params.sec)
 
-    return [regex_result, regex_sec_match, regex_email_match]
+    return [regex_result, regex_sec_match,
+            regex_email_match or params.line_id]
 
 
 def _insert_to_db(params):
@@ -55,7 +56,7 @@ def insert():
         _insert_to_db(params)
         result = "Done"
     else:
-        names = ["url", "sec", "email"]
+        names = ["url", "sec", "email or line_id"]
         error_msg = [name for i, name in zip(verify_results, names) if not i]
         result = "Failed: " + ",".join(error_msg) + " wrong"
 
