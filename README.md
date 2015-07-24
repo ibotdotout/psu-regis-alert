@@ -1,8 +1,11 @@
 [Psu-Regis-Alert](http://alert.im-bot.com)
 ------------
 
-[![Code Health](https://landscape.io/github/ibotdotout/psu-regis-alert/master/landscape.png)](https://landscape.io/github/ibotdotout/psu-regis-alert/master)
-[![Build Status](https://drone.io/github.com/ibotdotout/psu-regis-alert/status.png)](https://drone.io/github.com/ibotdotout/psu-regis-alert/latest)
+[![Build
+Status](https://drone.io/github.com/ibotdotout/psu-regis-alert/status.png)](https://drone.io/github.com/ibotdotout/psu-regis-alert/latest)
+[![Code
+Health](https://landscape.io/github/ibotdotout/psu-regis-alert/master/landscape.svg?style=flat-square)](https://landscape.io/github/ibotdotout/psu-regis-alert/master)
+
 
 เผื่อใครลงทะเบียนไม่ทัน   
 แล้วต้องมาคอยเช็คดูว่ามีคนถอนออกไปบ้างไหม  
