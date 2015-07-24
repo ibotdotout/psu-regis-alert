@@ -44,7 +44,7 @@ def _insert_to_db(params):
     db = db_connection.DbConnection()
     regex_result = re_subject_code.search(params.url)
     subject_code = regex_result.group()
-    db.insert_item(subject_code, params.email, params.sec)
+    db.insert_item(subject_code, params.email, params.line_id, params.sec)
 
 
 @app.route('/insert', methods=['GET', 'POST'])

@@ -4,6 +4,7 @@ import db_connection
 
 
 class DbConnectionTest(unittest.TestCase):
+
     @classmethod
     def setUpClass(cls):
         cls.queue = db_connection.DbConnection.QUEUE
@@ -12,13 +13,14 @@ class DbConnectionTest(unittest.TestCase):
         cls.subject_code = "xxx-xxx"
         cls.date = "xxx"
         cls.email = "test@hellotest.com"
+        cls.line_id = "psuregisalert"
         cls.sec = "01,02,10"
         cls.item = {'subject_code': cls.subject_code, 'date': cls.date,
-                    'email': cls.email, 'sec': cls.sec}
+                    'line_id': cls.line_id, 'email': cls.email, 'sec': cls.sec}
 
     def helper_assert_args_mock(self, mock_obj, args_list):
         args = [i for name, args, kwargs in mock_obj.mock_calls for i
-                in args if type(i) is str]
+                in args if isinstance(i, str)]
         self.assertEqual(args_list, args)
 
     def helper_get_db_collection(self, mock_obj):
@@ -62,7 +64,7 @@ class DbConnectionTest(unittest.TestCase):
 
         # arrange
         db = db_connection.DbConnection()
-        db.insert_item(self.subject_code, self.email, self.sec)
+        db.insert_item(self.subject_code, self.email, self.line_id, self.sec)
 
         # assert
         self.helper_assert_args_mock(mock_db, args_db)
@@ -90,14 +92,14 @@ class DbConnectionTest(unittest.TestCase):
         mock_collection.insert.assert_called_once_with(achived_item)
 
     @query_decorate([db_connection.DbConnection.DB_NAME,
-                    db_connection.DbConnection.QUEUE])
+                     db_connection.DbConnection.QUEUE])
     def test_query_queue_all(self):
         # arrange
         db = db_connection.DbConnection()
         db.query_queue_all()
 
     @query_decorate([db_connection.DbConnection.DB_NAME,
-                    db_connection.DbConnection.USED])
+                     db_connection.DbConnection.USED])
     def test_query_used_all(self):
         # arrange
         db = db_connection.DbConnection()
