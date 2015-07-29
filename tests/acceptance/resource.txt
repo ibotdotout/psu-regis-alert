@@ -57,7 +57,6 @@ Submit Form
 
 Insert Page Should Be Open And Display
     [Arguments]    ${text}
-    Location Should Be    ${INSERT URL}
     Page Should Contain    ${text}
 
 Queue Page Should Display
