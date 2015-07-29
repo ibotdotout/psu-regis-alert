@@ -31,16 +31,18 @@ def have_wanted_sec(wanted_sec, list_rooms):
 
 
 def get_values(item):
-    subject_code = item['subject_code']
+    subject_code = item.get('subject_code', '')
+    url = item.get('url', '')
+    line_id = item.get('line_id', '')
     line_id = item.get('line_id', '')
     email = item.get('email', '')
     wanted_sec = item.get('sec', '*')
-    return (subject_code, line_id, email, wanted_sec)
+    return (url, subject_code, line_id, email, wanted_sec)
 
 
-def update_quried(queried, subject_code, regis_alert):
+def update_quried(queried, url, subject_code, regis_alert):
     if subject_code not in queried:
-        if regis_alert.alert(subject_code):
+        if regis_alert.alert(url):
             queried = new_quried(queried, subject_code, regis_alert)
         else:
             queried[subject_code] = {'any_room': False}
@@ -87,12 +89,12 @@ line = Line()
 if items:
     print_separate_line()
     for item in items:
-        subject_code, line_id, email, wanted_sec = get_values(item)
+        url, subject_code, line_id, email, wanted_sec = get_values(item)
 
         regis_alert = alert.PsuRegisAlert()
 
         cached_queried = \
-            update_quried(cached_queried, subject_code, regis_alert)
+            update_quried(cached_queried, url, subject_code, regis_alert)
 
         regis_dict = cached_queried[subject_code]
 

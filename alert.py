@@ -6,8 +6,6 @@ import query
 
 
 class PsuRegisAlert(object):
-    URL = "https://sis-hatyai3.psu.ac.th/WebRegist2005/" \
-          "SubjectInfo.aspx?subject=%s"
 
     def __init__(self):
         self.regis_query = query.PsuRegisQuery()
@@ -31,9 +29,7 @@ class PsuRegisAlert(object):
                 list_sec.append(k)
         return list_sec
 
-    def alert(self, subject_code):
-        url = self.URL % subject_code
-
+    def alert(self, url):
         result, sec_rooms = self.regis_query.query(url)
         subject_id, _, has_room = result
 
@@ -50,7 +46,9 @@ class PsuRegisAlert(object):
 
 if __name__ == '__main__':
     email = None
-    subject_code = 2557200048520119
+    subject_code = \
+        "https://sis-hatyai6.psu.ac.th/WebRegist2005/" \
+        "SubjectInfo.aspx?subject=2558100048520119"
     alert = PsuRegisAlert()
     if alert.alert(subject_code):
         print alert.list_rooms
