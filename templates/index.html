@@ -27,6 +27,39 @@
       s.parentNode.insertBefore(p, s);
   })();
   </script>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $("#resultDiv").hide();
+    $("#summitForm").submit(function() {
+
+        var url = "/insert"; // the script where you handle the form input.
+
+        $.ajax({
+               type: "POST",
+               url: url,
+               data: $("#summitForm").serialize(), // serializes the form's elements.
+               success: function(data)
+               {
+                   // show response from the php script.
+                   $("#resultDiv").text(data)
+                   if(data=="Done"){
+                     $("#resultDiv").attr("class", "alert alert-success");
+                   }else{
+                     $("#resultDiv").attr("class", "alert alert-danger");
+                   }
+                   $("#resultDiv").show()
+               }
+             });
+
+        return false; // avoid to execute the actual submit of the form.
+      });
+  });
+  </script>
+
 </head>
 <body>
       <div style="widht=500px;text-align:center;">
@@ -35,7 +68,9 @@
         </div>
           <br>
           <div style="display:inline-block;text-align:left;margin:0 auto">
-            <form action="/insert" method="post">
+            <div class="alert alert-success" id="resultDiv" style="display:none">
+            </div>
+            <form id="summitForm" action="/insert" method="post">
               url:     <input id="url_field" type="text" name="url" style="width:621px"><br>
               sec:     <input id="sec_field" type="text" name="sec" style="width:619px" value="*"><br>
               email:   <input id="email_field" type="text" name="email" style="width:605px"><br>
