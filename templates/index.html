@@ -34,14 +34,14 @@
   <script>
   $(document).ready(function() {
     $("#resultDiv").hide();
-    $("#summitForm").submit(function() {
+    $("#submitForm").submit(function() {
 
         var url = "/insert"; // the script where you handle the form input.
 
         $.ajax({
                type: "POST",
                url: url,
-               data: $("#summitForm").serialize(), // serializes the form's elements.
+               data: $("#submitForm").serialize(), // serializes the form's elements.
                success: function(data)
                {
                    // show response from the php script.
@@ -70,15 +70,36 @@
           <div style="display:inline-block;text-align:left;margin:0 auto">
             <div class="alert alert-success" id="resultDiv" style="display:none">
             </div>
-            <form id="summitForm" action="/insert" method="post">
-              url:     <input id="url_field" type="text" name="url" style="width:621px"><br>
-              sec:     <input id="sec_field" type="text" name="sec" style="width:619px" value="*"><br>
-              email:   <input id="email_field" type="text" name="email" style="width:605px"><br>
-              line id: <input id="line_id_field" type="text" name="line_id" style="width:600px"><br>
-              <center>
-                  <input id="submit_button" type="submit" value="Submit">
-              </center>
-            </form>
+            <form class="form-horizontal" role="form" id="submitForm" action="/insert" method="post">
+               <div class="form-group">
+                   <label class="control-label col-sm-2" for="url">URL:</label>
+                   <div class="col-sm-10">
+                       <input type="url" class="form-control" id="url_field" name="url" placeholder="Enter Subject URL">
+                   </div>
+               </div>
+               <div class="form-group">
+                   <label class="control-label col-sm-2" for="sec">Section:</label>
+                   <div class="col-sm-10">
+                     <input type="text" class="form-control" id="sec_field" name="sec" value="*">
+                   </div>
+               </div>
+               <div class="form-group">
+                   <label class="control-label col-sm-2" for="email">Email:</label>
+                   <div class="col-sm-10">
+                       <input type="email" class="form-control" id="email_field" name="email" placeholder="Enter email">
+                   </div>
+               </div>
+               <div class="form-group">
+                   <label class="control-label col-sm-2" for="line_id">Line ID:</label>
+                   <div class="col-sm-10">
+                       <input type="text" class="form-control" id="line_id_field" name="line_id" placeholder="Enter Line ID">
+                   </div>
+               </div>
+               <div class="form-group">
+                     <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-default" id="submit_button" value="submit">Submit</button>
+                     </div>
+              </div>
             วิธีใช้<br>
             1.เปิดหน้า sis ของวิชาที่ต้องการลงทะเทียนจากระบบค้นหาในหน้าแรกของ sis<br>
             2. copy url ของหน้าวิชาที่ต้องการลงทะเบียน (ดังรูปใหญ่) มาใส่ในช่อง url<br>
