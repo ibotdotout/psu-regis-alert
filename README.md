@@ -5,6 +5,8 @@
 Status](https://travis-ci.org/ibotdotout/psu-regis-alert.svg?branch=master)](https://travis-ci.org/ibotdotout/psu-regis-alert)
 [![Code
 Health](https://landscape.io/github/ibotdotout/psu-regis-alert/master/landscape.svg?style=flat)](https://landscape.io/github/ibotdotout/psu-regis-alert/master)
+[![Codacy
+Badge](https://www.codacy.com/project/badge/2618f4ead25849a0b23b0b6350ee9b3c)](https://www.codacy.com/app/tkroputa/psu-regis-alert)
 
 
 เผื่อใครลงทะเบียนไม่ทัน   
