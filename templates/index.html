@@ -63,11 +63,11 @@
 </head>
 <body>
       <div style="widht=500px;text-align:center;">
-        <div>
-          <img src="static/how-to-get-url.png" alt="how to get url">
-        </div>
-          <br>
           <div style="display:inline-block;text-align:left;margin:0 auto">
+            <div>
+              <img src="static/how-to-get-url.png" class="img-responsive" alt="how to get url">
+            </div>
+            <br>
             <div class="alert alert-success" id="resultDiv" style="display:none">
             </div>
             <form class="form-horizontal" role="form" id="submitForm" action="/insert" method="post">
@@ -100,29 +100,25 @@
                       <button type="submit" class="btn btn-default" id="submit_button" value="submit">Submit</button>
                      </div>
               </div>
-            วิธีใช้<br>
-            1.เปิดหน้า sis ของวิชาที่ต้องการลงทะเทียนจากระบบค้นหาในหน้าแรกของ sis<br>
-            2. copy URL ของหน้าวิชาที่ต้องการลงทะเบียน (ดังรูปใหญ่) มาใส่ในช่อง URL<br>
-            3. กรอก Section ที่ต้องการ เช่น 01,02,10 หรือ * หากถ้าการทั้งหมด<br>
-            4. กรอก Email หรือ LineID ที่จะให้ทำการแจ้งเตือน<br>
-            5. กด Submit แล้วรอรับการแจ้งเตือนต่อไป <br>
-            <br>
-            หมายเหตุ แจ้งเตือนผ่าน Line ให้ add: psuregisalert เป็นเพื่อน
-            แล้ว ทำการเปิด Add by ID ดังรูปก่อน
-            <br>
-            <br>
-
-            <table>
-              <tr>
-              <td>
-                <img src="static/line-add-friend.png" alt="line add friend">
-              </td>
-              <td>
-                <img src="static/line-add-by-id.png" alt="line add by id">
-              </td>
-              </tr>
-            </table>
-
+              <h4>วิธีใช้</h4>
+              <ol>
+                  <li>เปิดหน้า sis ของวิชาที่ต้องการลงทะเทียนจากระบบค้นหาในหน้าแรกของ sis</li>
+                  <li>copy URL ของหน้าวิชาที่ต้องการลงทะเบียน (ดังรูปใหญ่) มาใส่ในช่อง URL</li>
+                  <li>กรอก Section ที่ต้องการ เช่น 01,02,10 หรือ * หากถ้าการทั้งหมด</li>
+                  <li>กรอก Email หรือ LineID ที่จะให้ทำการแจ้งเตือน</li>
+                  <li>กด Submit แล้วรอรับการแจ้งเตือนต่อไป </li>
+                  <dt>หมายเหตุ</dt>
+                  <dd>แจ้งเตือนผ่าน Line ให้ add: psuregisalert เป็นเพื่อน แล้ว ทำการเปิด Add by ID ดังรูปก่อน</dd>
+              </ol>
+              <br><br>
+              <div class="row">
+                  <div class="col-md-6">
+                      <img src="static/line-add-friend.png" class="img-responsive" alt="line add friend">
+                  </div>
+                  <div class="col-md-6">
+                      <img src="static/line-add-by-id.png" class="img-responsive" alt="line add by id">
+                  </div>
+              </div>
           </div>
         <br>
       </div>
