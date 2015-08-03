@@ -11,9 +11,13 @@ class Line(object):
 
         email = config.get('LINE', 'email')
         password = config.get('LINE', 'password')
+        authToken = config.get('LINE', 'token')
 
         try:
-            self.client = LineClient(email, password)
+            if authToken:
+                self.client = LineClient(authToken=authToken)
+            else:
+                self.client = LineClient(email, password)
         except:
             print("Line login failed")
 
