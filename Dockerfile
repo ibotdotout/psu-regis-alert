@@ -1,6 +1,4 @@
-# FROM python:2
-FROM dockerfile/python
-
+FROM python:2
 
 RUN apt-get update -y && apt-get dist-upgrade -y
 
@@ -25,7 +23,8 @@ RUN rm -rf /tmp/LINE
 
 # phatomjs drvier to selenium testing
 RUN apt-get install -y cron
-RUN apt-get install -y phantomjs
+RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" >> /etc/apt/sources.list  && apt-get update
+RUN apt-get -t unstable install -y phantomjs
 
 # mount code into docker and install python packages
 ADD . /app
