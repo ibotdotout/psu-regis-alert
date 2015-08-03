@@ -7,6 +7,7 @@ itsdangerous==0.24
 mock==1.0.1
 pymongo==2.7.1
 wsgiref==0.1.2
+flask-compress
 nose
 robotframework
 robotframework-selenium2library

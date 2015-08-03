@@ -3,8 +3,10 @@ import flask
 import db_connection
 import re
 import collections
+from flask.ext.compress import Compress
 
 app = flask.Flask(__name__)
+Compress(app)
 
 subject_code_pattern = r"(?<=subject=)\d{16}(?=$)"
 sec_pattern = r"^(\d\d,)*\d\d$|^\*$"
