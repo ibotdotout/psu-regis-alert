@@ -4,6 +4,7 @@ import alert
 import db_connection
 import datetime
 from line_client import Line
+import logging
 
 
 def regis_notice(item, email, line_id, subject, message):
@@ -81,6 +82,7 @@ def print_separate_line():
     print('#' * 79)
 
 
+logging.basicConfig(format='%(asctime)s %(message)s')
 db = db_connection.DbConnection()
 items = db.query_queue_all()
 cached_queried = {}
@@ -93,15 +95,19 @@ if items:
 
         regis_alert = alert.PsuRegisAlert()
 
-        cached_queried = \
-            update_quried(cached_queried, url, subject_code, regis_alert)
+        have_room = None
+        try:
+            cached_queried = \
+                update_quried(cached_queried, url, subject_code, regis_alert)
 
-        regis_dict = cached_queried[subject_code]
+            regis_dict = cached_queried[subject_code]
 
-        have_room = have_room_that_wanted(regis_dict, wanted_sec)
-        if have_room:
-            regis_notice(item, email, line_id,
-                         regis_dict['subject'], regis_dict['message'])
+            have_room = have_room_that_wanted(regis_dict, wanted_sec)
+            if have_room:
+                regis_notice(item, email, line_id,
+                             regis_dict['subject'], regis_dict['message'])
+        except AttributeError as e:
+            logging.error("%s", e)
 
         print_item(subject_code, wanted_sec, email, line_id, have_room)
     print_separate_line()

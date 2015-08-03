@@ -46,10 +46,16 @@ class PsuRegisAlert(object):
 
 if __name__ == '__main__':
     email = None
-    subject_code = \
-        "https://sis-hatyai6.psu.ac.th/WebRegist2005/" \
-        "SubjectInfo.aspx?subject=2558100048520119"
+    # subject_code = \
+    # "https://sis-hatyai6.psu.ac.th/WebRegist2005/" \
+    # "SubjectInfo.aspx?subject=2558100048520119"
+    # errorr need login
+    subject_code = "https://sis-hatyai46.psu.ac.th/WebRegist2005/" \
+        "Student/SubjectInfo.aspx?subject=2558100064080120"
     alert = PsuRegisAlert()
-    if alert.alert(subject_code):
-        print alert.list_rooms
-    print alert.message
+    try:
+        if alert.alert(subject_code):
+            print alert.list_rooms
+        print alert.message
+    except AttributeError as e:
+        print(e)
