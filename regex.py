@@ -6,9 +6,7 @@ import re
 class PsuRegex(object):
     pattern_form = "(?<={start}){re}(?={end})"
     pattern = {'subject_id': ('<td>', r'\d{3}-\d{3}'),
-               # 'subject_name': ('><b>ชื่อภาษาอังกฤษ</b></td><td>',
-               # '.*', '</td>'),
-               'subject_name': ('><b>(Subject Name Eng|a)</b></td><td>',
+               'subject_name': ('><b>ชื่อภาษาอังกฤษ</b></td><td>',
                                 '.*', '</td>'),
                'section': ('SECTION_NOLabel">', r'\d\d', '</span>'),
                'reserved': ('RESERVEDLabel">', '.*', '</span>'),
@@ -29,8 +27,8 @@ class PsuRegex(object):
     def compile_regex_subject_name(self):
         # subject_name_pattern = \
             # self.helper_pattern(*self.pattern['subject_name'])
-        phuket_re = "(?<=<b>Subject Name Eng</b></td><td>)"
-        hatyai_re = "(?<=<b>ชื่อภาษาอังกฤษ</b></td><td>)"
+        phuket_re = "(?<=><b>Subject Name Eng</b></td><td>)"
+        hatyai_re = "(?<=><b>ชื่อภาษาอังกฤษ</b></td><td>)"
         subject_name_pattern = \
             "({0}|{1}).*(?=</td>)".format(hatyai_re, phuket_re)
         return re.compile(subject_name_pattern)
