@@ -5,6 +5,7 @@ import db_connection
 import datetime
 from line_client import Line
 import logging
+import urllib2
 
 
 def regis_notice(item, email, line_id, subject, message):
@@ -107,6 +108,8 @@ if items:
                 regis_notice(item, email, line_id,
                              regis_dict['subject'], regis_dict['message'])
         except AttributeError as e:
+            logging.error("%s", e)
+        except urllib2.HTTPError as e:
             logging.error("%s", e)
 
         print_item(subject_code, wanted_sec, email, line_id, have_room)
