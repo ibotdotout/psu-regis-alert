@@ -1,8 +1,11 @@
 import regex as rex
 import collections as coll
+import urllib2
+import contextlib
 
 
 class PsuRegisQuery(object):
+
     def __init__(self):
         regex = rex.PsuRegex()
         self.re_subject_id = regex.compile_regex_subject_id()
@@ -15,9 +18,10 @@ class PsuRegisQuery(object):
 
     def _load_content_page(self, url):
         """ load content page """
-        import urllib2 as urllib
-        import contextlib
-        with contextlib.closing(urllib.urlopen(url)) as socket:
+        # Enable cookier to avoid self redirect
+        # http://stackoverflow.com/questions/4098702/python-urllib2-urlopen-returning-302-error-even-though-page-exists
+        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
+        with contextlib.closing(opener.open(url)) as socket:
             return socket.read()
 
     def _helper_search(self, x, y, start=None):
