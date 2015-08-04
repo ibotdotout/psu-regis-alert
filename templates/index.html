@@ -33,28 +33,32 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script>
   $(document).ready(function() {
+    var prev_data = null;
     $("#resultDiv").hide();
     $("#submitForm").submit(function() {
 
         var url = "/insert"; // the script where you handle the form input.
+        var data = $("#submitForm").serialize();
 
-        $.ajax({
-               type: "POST",
-               url: url,
-               data: $("#submitForm").serialize(), // serializes the form's elements.
-               success: function(data)
-               {
-                   // show response from the php script.
-                   $("#resultDiv").text(data)
-                   if(data=="Done"){
-                     $("#resultDiv").attr("class", "alert alert-success");
-                   }else{
-                     $("#resultDiv").attr("class", "alert alert-danger");
+        if(prev_data!=data){
+            $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: data,
+                   success: function(data)
+                   {
+                       // show response from the php script.
+                       $("#resultDiv").text(data)
+                       if(data=="Done"){
+                         $("#resultDiv").attr("class", "alert alert-success");
+                       }else{
+                         $("#resultDiv").attr("class", "alert alert-danger");
+                       }
+                       $("#resultDiv").show()
                    }
-                   $("#resultDiv").show()
-               }
-             });
-
+                 });
+        }
+        prev_data = data;
         return false; // avoid to execute the actual submit of the form.
       });
   });
