@@ -52,12 +52,14 @@ if __name__ == '__main__':
         "SubjectInfo.aspx?subject=2558100048520119"
     # hatyai normal url with login require
     # that should avoid by remove /Student
-    url = "https://sis-hatyai46.psu.ac.th/WebRegist2005/" \
-        "Student/SubjectInfo.aspx?subject=2558100064080120"
+    # url = "https://sis-hatyai46.psu.ac.th/WebRegist2005/" \
+    # "Student/SubjectInfo.aspx?subject=2558100064080120"
     # phuket normal url
     # that should enable cookie before open request
-    url = "https://sis-phuket4.psu.ac.th/WebRegist2005/" \
-        "SubjectInfo.aspx?subject=2558100024830001"
+    # url = "https://sis-phuket4.psu.ac.th/WebRegist2005/" \
+    # "SubjectInfo.aspx?subject=2558100024830001"
+    url = "https://sis-hatyai50.psu.ac.th/WebRegist2005/SubjectInfo.aspx?subject=2558100048680119"
+    url = "https://sis-phuket4.psu.ac.th/WebRegist2005/SubjectInfo.aspx?subject=2558100024620001"
     alert = PsuRegisAlert()
     try:
         if alert.alert(url):
