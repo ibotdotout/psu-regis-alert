@@ -23,6 +23,12 @@ class DbConnectionTest(unittest.TestCase):
             'line_id': cls.line_id,
             'email': cls.email,
             'sec': cls.sec}
+        cls.key_item = {
+            'url': cls.url,
+            'subject_code': cls.subject_code,
+            'line_id': cls.line_id,
+            'email': cls.email,
+            'sec': cls.sec}
 
     def helper_assert_args_mock(self, mock_obj, args_list):
         args = [i for name, args, kwargs in mock_obj.mock_calls for i
@@ -80,7 +86,10 @@ class DbConnectionTest(unittest.TestCase):
         # assert
         self.helper_assert_args_mock(mock_db, args_db)
 
-        mock_collection.insert.assert_called_once_with(self.item)
+        # mock_collection.insert.assert_called_once_with(self.item)
+        # using upsert instead of insert
+        mock_collection.update.assert_called_once_with(self.key_item,
+                                                       self.item, upsert=True)
 
     @mock.patch('pymongo.MongoClient')
     @mock.patch('datetime.datetime')
@@ -89,6 +98,9 @@ class DbConnectionTest(unittest.TestCase):
         args_db = [self.db_name, self.queue, self.used]
         achived_item = self.item.copy()
         achived_item['achived_date'] = self.date
+
+        achived_key = self.key_item.copy()
+        achived_key['achived_date'] = self.date
 
         mock_db, mock_collection = \
             self.helper_mock_db(mock_datetime, mock_mongo)
@@ -100,7 +112,12 @@ class DbConnectionTest(unittest.TestCase):
         # assert
         self.helper_assert_args_mock(mock_db, args_db)
         mock_collection.remove.assert_called_once_with(self.item)
-        mock_collection.insert.assert_called_once_with(achived_item)
+        # mock_collection.insert.assert_called_once_with(achived_item)
+
+        # using upsert instead of insert
+        mock_collection.update.assert_called_once_with(achived_key,
+                                                       achived_item,
+                                                       upsert=True)
 
     @query_decorate([db_connection.DbConnection.DB_NAME,
                      db_connection.DbConnection.QUEUE])

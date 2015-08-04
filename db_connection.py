@@ -22,7 +22,11 @@ class DbConnection(object):
             return dbCursor
 
     def _insert_item(self, item, collection):
-        self.db[collection].insert(item)
+        # self.db[collection].insert(item)
+
+        # use upsert to prevent duplicate documents
+        key = {key: value for key, value in item.items() if key is not "date"}
+        self.db[collection].update(key, item, upsert=True)
 
     def query_queue_all(self):
         return self._query_all(self.QUEUE)
