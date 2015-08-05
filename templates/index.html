@@ -31,8 +31,20 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://raw.githubusercontent.com/1000hz/bootstrap-validator/master/dist/validator.min.js"></script>
+
   <script>
   $(document).ready(function() {
+    $('#submitForm').validator({
+      custom: {
+        minchecked: function ($el) {
+          return $el.val().length > 0
+        }
+      },
+      errors: {
+        minchecked: 'กรอก email หรือ line id'
+      }
+    });
     var prev_data = null;
     $("#resultDiv").hide();
     $("#submitForm").submit(function() {
@@ -74,29 +86,37 @@
             <br>
             <div class="alert alert-success" id="resultDiv" style="display:none">
             </div>
-            <form class="form-horizontal" role="form" id="submitForm" action="/insert" method="post">
-               <div class="form-group">
-                   <label class="control-label col-sm-2" for="url">URL:</label>
-                   <div class="col-sm-10">
-                       <input type="url" class="form-control" id="url_field" name="url" placeholder="Enter Subject URL">
+            <form class="form-horizontal" role="form" data-toggle="validator" id="submitForm" action="/insert" method="post">
+             <div class="form-group has-feedback">
+                 <label class="control-label col-sm-2" for="url">URL:</label>
+                 <div class="col-sm-10">
+                     <input type="url" pattern="^http.*subject=\d{16}$" class="form-control" id="url_field" name="url" placeholder="Enter Subject URL" data-error="กรอก url ไม่ถูกต้อง" required>
+                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                     <div class="help-block with-errors"></div>
                    </div>
-               </div>
-               <div class="form-group">
+                 </div>
+               <div class="form-group has-feedback">
                    <label class="control-label col-sm-2" for="sec">Section:</label>
                    <div class="col-sm-10">
-                     <input type="text" class="form-control" id="sec_field" name="sec" value="*">
+                     <input type="text" pattern="^(\d\d,)*\d\d$|^\*$" class="form-control" id="sec_field" name="sec" value="*" data-error="ตัวอย่าง: * หรือ 01,02,10" required>
+                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                     <div class="help-block with-errors"></div>
                    </div>
                </div>
-               <div class="form-group">
+               <div class="form-group has-feedback">
                    <label class="control-label col-sm-2" for="email">Email:</label>
                    <div class="col-sm-10">
-                       <input type="email" class="form-control" id="email_field" name="email" placeholder="Enter email">
+                       <input type="email" pattern="^[\w._-]+?@[\w.-]+.\w+$" class="form-control" id="email_field" name="email" placeholder="Enter email" data-minchecked="bar">
+                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                       <div class="help-block with-errors"></div>
                    </div>
                </div>
-               <div class="form-group">
+               <div class="form-group has-feedback">
                    <label class="control-label col-sm-2" for="line_id">Line ID:</label>
                    <div class="col-sm-10">
-                       <input type="text" class="form-control" id="line_id_field" name="line_id" placeholder="Enter Line ID">
+                       <input type="text" class="form-control" id="line_id_field" name="line_id" placeholder="Enter Line ID" data-minchecked="bar">
+                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                       <div class="help-block with-errors"></div>
                    </div>
                </div>
                <div class="form-group">
@@ -104,6 +124,7 @@
                       <button type="submit" class="btn btn-default" id="submit_button" value="submit">Submit</button>
                      </div>
               </div>
+            </form>
               <h4>วิธีใช้</h4>
               <ol>
                   <li>เปิดหน้า sis ของวิชาที่ต้องการลงทะเทียนจากระบบค้นหาในหน้าแรกของ sis</li>
