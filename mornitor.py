@@ -21,6 +21,7 @@ def mail_notic(item, email, subject, message):
 
 
 def line_notice(item, line_id, message):
+    line_id = line_id.strip()
     line.send(line_id, message)
 
 
