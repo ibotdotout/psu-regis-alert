@@ -4,6 +4,7 @@
 config.ini
 logfile
 db/
+backup/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
