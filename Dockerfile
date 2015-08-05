@@ -21,8 +21,10 @@ RUN cd /tmp/LINE && python config.py
 RUN cd /tmp/LINE && python setup.py install
 RUN rm -rf /tmp/LINE
 
-# phatomjs drvier to selenium testing
+# Install cron
 RUN apt-get install -y cron
+
+# phatomjs drvier to selenium testing
 RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" >> /etc/apt/sources.list  && apt-get update
 RUN apt-get -t unstable install -y phantomjs
 
