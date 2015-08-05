@@ -38,40 +38,55 @@
     $('#submitForm').validator({
       custom: {
         minchecked: function ($el) {
-          return $el.val().length > 0
+          var sum=0;
+          $('.minchecked').each(function(i, obj) {
+            sum+=$(this).val().length;
+          });
+          return sum > 0
         }
       },
       errors: {
-        minchecked: 'กรอก email หรือ line id'
+        minchecked: 'กรอก email หรือ line id',
       }
     });
-    var prev_data = null;
+    var prevent=false;
     $("#resultDiv").hide();
-    $("#submitForm").submit(function() {
+    $("form :input").on('input', function() {
+        prevent=false;
+        $("#resultDiv").hide();
+    });
+    $("#submitForm").submit(function(e) {
+        if (e.isDefaultPrevented()) {
+            // handle the invalid form...
+            $("#resultDiv").text("กรุณากรอกข้อมูลให้ถูกต้อง");
+            $("#resultDiv").attr("class", "alert alert-warning");
+            $("#resultDiv").show();
+        } else {
+            // everything looks good!
+            var url = "/insert"; // the script where you handle the form input.
+            var data = $("#submitForm").serialize();
 
-        var url = "/insert"; // the script where you handle the form input.
-        var data = $("#submitForm").serialize();
-
-        if(prev_data!=data){
-            $.ajax({
-                   type: "POST",
-                   url: url,
-                   data: data,
-                   success: function(data)
-                   {
-                       // show response from the php script.
-                       $("#resultDiv").text(data)
-                       if(data=="Done"){
-                         $("#resultDiv").attr("class", "alert alert-success");
-                       }else{
-                         $("#resultDiv").attr("class", "alert alert-danger");
+            if(prevent==false){
+                $.ajax({
+                       type: "POST",
+                       url: url,
+                       data: data,
+                       success: function(data)
+                       {
+                           // show response from the php script.
+                           $("#resultDiv").text(data);
+                           if(data=="Done"){
+                             $("#resultDiv").attr("class", "alert alert-success");
+                           }else{
+                             $("#resultDiv").attr("class", "alert alert-danger");
+                           }
+                           $("#resultDiv").show();
+                           prevent=true;
                        }
-                       $("#resultDiv").show()
-                   }
-                 });
+                     });
+            }
+            return false; // avoid to execute the actual submit of the form.
         }
-        prev_data = data;
-        return false; // avoid to execute the actual submit of the form.
       });
   });
   </script>
@@ -106,7 +121,7 @@
                <div class="form-group has-feedback">
                    <label class="control-label col-sm-2" for="email">Email:</label>
                    <div class="col-sm-10">
-                       <input type="email" pattern="^[\w._-]+?@[\w.-]+.\w+$" class="form-control" id="email_field" name="email" placeholder="Enter email" data-minchecked="bar">
+                     <input type="email" class="form-control minchecked" id="email_field" name="email" placeholder="Enter email" data-minchecked="checked" data-error="">
                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                        <div class="help-block with-errors"></div>
                    </div>
@@ -114,7 +129,7 @@
                <div class="form-group has-feedback">
                    <label class="control-label col-sm-2" for="line_id">Line ID:</label>
                    <div class="col-sm-10">
-                       <input type="text" class="form-control" id="line_id_field" name="line_id" placeholder="Enter Line ID" data-minchecked="bar">
+                       <input type="text" class="form-control minchecked" id="line_id_field" name="line_id" placeholder="Enter Line ID" data-minchecked="checked">
                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                        <div class="help-block with-errors"></div>
                    </div>
