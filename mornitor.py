@@ -70,27 +70,27 @@ def have_room_that_wanted(regis_dict, wanted_sec):
         have_wanted_sec(wanted_sec, regis_dict['list_rooms'])
 
 
-def print_item(subject_code, wanted_sec, email, line_id, result):
-    values = (datetime.datetime.utcnow(), subject_code,
-              wanted_sec, email, line_id)
+def item_represent(subject_code, wanted_sec, email, line_id, result):
+    values = (subject_code, wanted_sec, email, line_id)
     line = " ".join([str(i) for i in values])
     if result:
         line += 'done'
-    print(line)
+    return line
 
 
-def print_separate_line():
-    print('#' * 79)
+separate_line = '#' * 79
 
 
-logging.basicConfig(format='%(asctime)s %(message)s')
+logging.basicConfig(filename='logfile', level=logging.DEBUG,
+                    format='%(levelname)s %(asctime)s %(message)s')
 db = db_connection.DbConnection()
 items = db.query_queue_all()
 cached_queried = {}
 line = Line()
 
 if items:
-    print_separate_line()
+    logging.info(separate_line)
+    print separate_line
     for item in items:
         url, subject_code, line_id, email, wanted_sec = get_values(item)
 
@@ -112,5 +112,10 @@ if items:
         except urllib2.HTTPError as e:
             logging.error("%s", e)
 
-        print_item(subject_code, wanted_sec, email, line_id, have_room)
-    print_separate_line()
+        item_repr = \
+            item_represent(subject_code, wanted_sec, email, line_id, have_room)
+        print str(datetime.datetime.utcnow()) + " " + item_repr
+        logging.info(item_repr)
+
+    logging.info(separate_line)
+    print separate_line
