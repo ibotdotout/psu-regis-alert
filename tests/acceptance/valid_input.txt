@@ -12,7 +12,7 @@ Valid Email Input
     Insert Page Should Be Open and Display    Done
 
 Valid Line Input
-    Open Browser To Home Page
+    Go To Home Page
     Input URL     ${valid_url}
     Input Sec     ${valid_sec}
     Input Line    ${valid_line_id}
