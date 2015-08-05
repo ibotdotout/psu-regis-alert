@@ -17,6 +17,7 @@ def backup_db():
         """ && mongodump -d psuRegisAlert """
         """ -o backup/db_$(date +%Y-%m-%d_%Hh%Mm)'""")
     run('docker cp psuregisalert_db_1:/backup/ /root')
-    run('cp -r /root/psu-regis-alert/logfile /root/backup')
+    run('docker cp psuregisalert_mornitor_1:/var/log/cron.log /root/backup')
+    run('mv /root/backup/cron.log /root/backup/morinitor.log')
     local("rsync -r -e 'ssh -i {0}' {1}:/root/backup/ backup/"
           .format(env.key_filename[0], env.host_string))

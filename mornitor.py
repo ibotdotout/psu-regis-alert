@@ -2,7 +2,6 @@
 
 import alert
 import db_connection
-import datetime
 from line_client import Line
 import logging
 import urllib2
@@ -82,7 +81,7 @@ def item_represent(subject_code, wanted_sec, email, line_id, result):
 separate_line = '#' * 79
 
 
-logging.basicConfig(filename='logfile', level=logging.DEBUG,
+logging.basicConfig(level=logging.DEBUG,
                     format='%(levelname)s %(asctime)s %(message)s')
 db = db_connection.DbConnection()
 items = db.query_queue_all()
@@ -91,7 +90,6 @@ line = Line()
 
 if items:
     logging.info(separate_line)
-    print separate_line
     for item in items:
         url, subject_code, line_id, email, wanted_sec = get_values(item)
 
@@ -115,8 +113,6 @@ if items:
 
         item_repr = \
             item_represent(subject_code, wanted_sec, email, line_id, have_room)
-        print str(datetime.datetime.utcnow()) + " " + item_repr
         logging.info(item_repr)
 
     logging.info(separate_line)
-    print separate_line
