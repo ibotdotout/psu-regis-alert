@@ -106,4 +106,5 @@ def query_used():
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port, debug=os.environ.get('DEBUG', False))
+    debug = True if os.environ.get('DEBUG', "False") == "True" else False
+    app.run(host='0.0.0.0', port=port, debug=debug)

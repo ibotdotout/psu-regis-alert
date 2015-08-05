@@ -1,4 +1,4 @@
-# docker-compose
+# docker-compose -f production.yml
 
 web:
   extends:
@@ -6,10 +6,16 @@ web:
     service: web
   links:
     - db:db
-  environment:
-    - DEBUG=True
 
 db:
   extends:
     file: common.yml
     service: db
+
+mornitor:
+  build: .
+  command: ./bin/cron
+  volumes:
+   - .:/app
+  links:
+    - db:db
