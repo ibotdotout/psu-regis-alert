@@ -110,6 +110,8 @@ if items:
             logging.error("%s", e)
         except urllib2.HTTPError as e:
             logging.error("%s", e)
+        except urllib2.URLError as e:
+            logging.error("%s", e)
 
         item_repr = \
             item_represent(subject_code, wanted_sec, email, line_id, have_room)
