@@ -44,6 +44,7 @@ def get_values(item):
 
 def update_quried(queried, url, subject_code, regis_alert):
     if subject_code not in queried:
+        url = url.replace("/Student/", "/")  # avoid /Student/ in db
         if regis_alert.alert(url):
             queried = new_quried(queried, subject_code, regis_alert)
         else:
