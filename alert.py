@@ -3,6 +3,7 @@
 
 import send_mail
 import query
+import re
 
 
 class PsuRegisAlert(object):
@@ -29,7 +30,14 @@ class PsuRegisAlert(object):
                 list_sec.append(k)
         return list_sec
 
+    def get_static_url(self, url):
+        selected_node = 3
+        template = re.sub(r"(^\D+)(\d+)(.psu.*$)", r"\1{0}\3", url)
+        url = template.format(selected_node)
+        return url
+
     def alert(self, url):
+        url = self.get_static_url(url)
         result, sec_rooms = self.regis_query.query(url)
         subject_id, _, has_room = result
 
@@ -58,7 +66,7 @@ if __name__ == '__main__':
     # that should enable cookie before open request
     # url = "https://sis-phuket4.psu.ac.th/WebRegist2005/" \
     # "SubjectInfo.aspx?subject=2558100024830001"
-    url = "https://sis-hatyai50.psu.ac.th/WebRegist2005/SubjectInfo.aspx?subject=2558100048680119"
+    # url = "https://sis-hatyai50.psu.ac.th/WebRegist2005/SubjectInfo.aspx?subject=2558100048680119"
     url = "https://sis-phuket4.psu.ac.th/WebRegist2005/SubjectInfo.aspx?subject=2558100024620001"
     alert = PsuRegisAlert()
     try:
