@@ -66,8 +66,10 @@ if __name__ == '__main__':
     # that should enable cookie before open request
     # url = "https://sis-phuket4.psu.ac.th/WebRegist2005/" \
     # "SubjectInfo.aspx?subject=2558100024830001"
+    # phuket normal url with login require
+    # that should avoid by remove /Search
+    # url = # "https://sis-phuket2.psu.ac.th/WebRegist2005/Search/SubjectInfo.aspx?subject=2558100023120009"
     # url = "https://sis-hatyai50.psu.ac.th/WebRegist2005/SubjectInfo.aspx?subject=2558100048680119"
-    url = "https://sis-phuket4.psu.ac.th/WebRegist2005/SubjectInfo.aspx?subject=2558100024620001"
     alert = PsuRegisAlert()
     try:
         if alert.alert(url):

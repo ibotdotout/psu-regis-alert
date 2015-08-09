@@ -16,10 +16,12 @@ def regis_notice(item, email, line_id, subject, message):
 
 
 def mail_notic(item, email, subject, message):
+    return
     regis_alert.send_notice_mail(email, subject, message)
 
 
 def line_notice(item, line_id, message):
+    return
     line_id = line_id.strip()
     line.send(line_id, message)
 
@@ -44,7 +46,10 @@ def get_values(item):
 
 def update_quried(queried, url, subject_code, regis_alert):
     if subject_code not in queried:
-        url = url.replace("/Student/", "/")  # avoid /Student/ in db
+        # avoid keyword in db
+        avoid_keyword = ("/Student/", "/Search/")
+        for keyword in avoid_keyword:
+            url = url.replace(keyword, "/")
         if regis_alert.alert(url):
             queried = new_quried(queried, subject_code, regis_alert)
         else:
@@ -87,7 +92,7 @@ logging.basicConfig(level=logging.DEBUG,
 db = db_connection.DbConnection()
 items = db.query_queue_all()
 cached_queried = {}
-line = Line()
+# line = Line()
 
 if items:
     logging.info(separate_line)
@@ -108,6 +113,7 @@ if items:
                 regis_notice(item, email, line_id,
                              regis_dict['subject'], regis_dict['message'])
         except AttributeError as e:
+            logging.error("%s", url)
             logging.error("%s", e)
         except urllib2.HTTPError as e:
             logging.error("%s", e)

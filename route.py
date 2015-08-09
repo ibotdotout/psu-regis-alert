@@ -41,7 +41,10 @@ def _insert_to_db(params):
     db = db_connection.DbConnection()
     regex_result = re_subject_code.search(params.url)
     subject_code = regex_result.group()
-    url = params.url.replace("/Student/", "/")
+    url = params.url
+    avoid_keyword = ("/Student/", "/Search/")
+    for keyword in avoid_keyword:
+        url = url.replace(keyword, "/")
     db.insert_item(url, subject_code, params.email,
                    params.line_id, params.sec)
 
