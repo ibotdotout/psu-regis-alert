@@ -14,6 +14,6 @@ db:
   extends:
     file: common.yml
     service: db
-  command: bash -c "mongod --smallfiles & mongorestore `ls -td1 /backup/*/ | tail -1`; wait"
+  command: bash -c "mongod --smallfiles & mongorestore `ls -d1 /backup/*/ | tail -1`; wait"
   volumes:
    - ./backup:/backup
