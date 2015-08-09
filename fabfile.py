@@ -18,6 +18,6 @@ def backup_db():
         """ -o backup/db_$(date +%Y-%m-%d_%Hh%Mm)'""")
     run('docker cp psuregisalert_db_1:/backup/ /root')
     run('docker cp psuregisalert_mornitor_1:/var/log/cron.log /root/backup')
-    run('mv /root/backup/cron.log /root/backup/morinitor.log')
+    run('mv /root/backup/cron.log /root/backup/mornitor.log')
     local("rsync -r -e 'ssh -i {0}' {1}:/root/backup/ backup/"
           .format(env.key_filename[0], env.host_string))
