@@ -78,7 +78,7 @@ def item_represent(subject_code, wanted_sec, email, line_id, result):
     values = (subject_code, wanted_sec, email, line_id)
     line = " ".join([str(i) for i in values])
     if result:
-        line += 'done'
+        line += ' done'
     return line
 
 
