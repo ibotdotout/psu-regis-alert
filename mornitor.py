@@ -16,12 +16,10 @@ def regis_notice(item, email, line_id, subject, message):
 
 
 def mail_notic(item, email, subject, message):
-    return
     regis_alert.send_notice_mail(email, subject, message)
 
 
 def line_notice(item, line_id, message):
-    return
     line_id = line_id.strip()
     line.send(line_id, message)
 
@@ -92,7 +90,7 @@ logging.basicConfig(level=logging.DEBUG,
 db = db_connection.DbConnection()
 items = db.query_queue_all()
 cached_queried = {}
-# line = Line()
+line = Line()
 
 if items:
     logging.info(separate_line)
