@@ -24,9 +24,10 @@ RUN rm -rf /tmp/LINE
 # Install cron
 RUN apt-get install -y cron
 
+# phamtomjs was removed from debian and ubuntu. it need manauly build.
 # phatomjs drvier to selenium testing
-RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" >> /etc/apt/sources.list  && apt-get update
-RUN apt-get -t unstable install -y phantomjs
+# RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" >> /etc/apt/sources.list  && apt-get update
+# RUN apt-get -t unstable install -y phantomjs
 
 # mount code into docker and install python packages
 ADD . /app
