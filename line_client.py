@@ -11,15 +11,14 @@ class Line(object):
 
         email = config.get('LINE', 'email')
         password = config.get('LINE', 'password')
-        authToken = config.get('LINE', 'token')
 
         try:
-            if authToken:
-                self.client = LineClient(authToken=authToken)
-            else:
-                self.client = LineClient(email, password)
+            self.client = LineClient(email, password)
         except:
             print("Line login failed")
+
+    def updateAuthToken(self):
+        self.client.updateAuthToken()
 
     def send(self, target_id, message):
 

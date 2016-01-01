@@ -1,10 +1,13 @@
+#!/usr/bin/env python
 # encoding: utf-8
+
 
 import alert
 import db_connection
 from line_client import Line
 import logging
 import urllib2
+import time
 
 
 def regis_notice(item, email, line_id, subject, message):
@@ -92,34 +95,44 @@ items = db.query_queue_all()
 cached_queried = {}
 line = Line()
 
-if items:
-    logging.info(separate_line)
-    for item in items:
-        url, subject_code, line_id, email, wanted_sec = get_values(item)
+while True:
+    if items:
+        logging.info(separate_line)
+        for item in items:
+            url, subject_code, line_id, email, wanted_sec = get_values(item)
 
-        regis_alert = alert.PsuRegisAlert()
+            regis_alert = alert.PsuRegisAlert()
 
-        have_room = None
-        try:
-            cached_queried = \
-                update_quried(cached_queried, url, subject_code, regis_alert)
+            have_room = None
+            try:
+                cached_queried = update_quried(
+                    cached_queried,
+                    url,
+                    subject_code,
+                    regis_alert)
 
-            regis_dict = cached_queried[subject_code]
+                regis_dict = cached_queried[subject_code]
 
-            have_room = have_room_that_wanted(regis_dict, wanted_sec)
-            if have_room:
-                regis_notice(item, email, line_id,
-                             regis_dict['subject'], regis_dict['message'])
-        except AttributeError as e:
-            logging.error("%s", url)
-            logging.error("%s", e)
-        except urllib2.HTTPError as e:
-            logging.error("%s", e)
-        except urllib2.URLError as e:
-            logging.error("%s", e)
+                have_room = have_room_that_wanted(regis_dict, wanted_sec)
+                if have_room:
+                    regis_notice(item, email, line_id,
+                                 regis_dict['subject'], regis_dict['message'])
+            except AttributeError as e:
+                logging.error("%s", url)
+                logging.error("%s", e)
+            except urllib2.HTTPError as e:
+                logging.error("%s", e)
+            except urllib2.URLError as e:
+                logging.error("%s", e)
 
-        item_repr = \
-            item_represent(subject_code, wanted_sec, email, line_id, have_room)
-        logging.info(item_repr)
+            item_repr = item_represent(
+                subject_code,
+                wanted_sec,
+                email,
+                line_id,
+                have_room)
+            logging.info(item_repr)
 
-    logging.info(separate_line)
+        logging.info(separate_line)
+        line.updateAuthToken()
+        time.sleep(300)

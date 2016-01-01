@@ -14,7 +14,7 @@ db:
 
 mornitor:
   build: .
-  command: ./bin/cron
+  command: ./mornitor.py
   volumes:
    - .:/app
   links:

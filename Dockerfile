@@ -21,9 +21,6 @@ RUN cd /tmp/LINE && python config.py
 RUN cd /tmp/LINE && python setup.py install
 RUN rm -rf /tmp/LINE
 
-# Install cron
-RUN apt-get install -y cron
-
 # phamtomjs was removed from debian and ubuntu. it need manauly build.
 # phatomjs drvier to selenium testing
 # RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" >> /etc/apt/sources.list  && apt-get update
@@ -33,14 +30,5 @@ RUN apt-get install -y cron
 ADD . /app
 WORKDIR /app
 RUN pip install -r requirements.txt
-
-# Add crontab file in the cron directory
-ADD crontab /etc/cron.d/mornitor-cron
-
-# Give execution rights on the cron job
-RUN chmod 0644 /etc/cron.d/mornitor-cron
-
-# Create the log file to be able to run tail
-RUN touch /var/log/cron.log
 
 CMD ["bash"]
