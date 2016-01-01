@@ -49,3 +49,6 @@ class DbConnection(object):
             'line_id': line_id,
             'date': datetime.datetime.utcnow()}
         self._insert_item(item, self.QUEUE)
+
+    def close(self):
+        self.db.close()

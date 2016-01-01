@@ -8,6 +8,7 @@ from line_client import Line
 import logging
 import urllib2
 import time
+import sys
 
 
 def regis_notice(item, email, line_id, subject, message):
@@ -90,12 +91,13 @@ separate_line = '#' * 79
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(levelname)s %(asctime)s %(message)s')
-db = db_connection.DbConnection()
-items = db.query_queue_all()
-cached_queried = {}
+sys.stdout = logging
 line = Line()
 
 while True:
+    db = db_connection.DbConnection()
+    items = db.query_queue_all()
+    cached_queried = {}
     if items:
         logging.info(separate_line)
         for item in items:
@@ -134,5 +136,6 @@ while True:
             logging.info(item_repr)
 
         logging.info(separate_line)
+        db.close()
         line.updateAuthToken()
         time.sleep(300)
