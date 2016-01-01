@@ -3,6 +3,7 @@ import flask
 import db_connection
 import re
 import collections
+import datetime
 from flask.ext.compress import Compress
 
 app = flask.Flask(__name__)
@@ -57,9 +58,14 @@ def display_items(items, date='date'):
         return x
 
     def line_template(item, date):
+        def convert_to_str(val):
+            return str(val) if isinstance(
+                val,
+                datetime.datetime) else val.encode('utf-8').strip()
+
         names = [date, 'subject_code', 'sec', 'email', 'line_id']
         protect_list = [False, False, False, True, True]
-        values = [str(item.get(name, "")) for name in names]
+        values = [convert_to_str(item.get(name, "")) for name in names]
         values = [protected(val, is_protect)
                   for val, is_protect in zip(values, protect_list)]
         return " ".join(values)
