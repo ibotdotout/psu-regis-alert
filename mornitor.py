@@ -11,6 +11,22 @@ import time
 import sys
 
 
+class LogFile(object):
+    # http://stackoverflow.com/a/2216517
+
+    """File-like object to log text using the `logging` module."""
+
+    def __init__(self, name=None):
+        self.logger = logging.getLogger(name)
+
+    def write(self, msg, level=logging.INFO):
+        self.logger.log(level, msg)
+
+    def flush(self):
+        for handler in self.logger.handlers:
+            handler.flush()
+
+
 def regis_notice(item, email, line_id, subject, message):
     if email:
         mail_notic(item, email, subject, message)
@@ -88,10 +104,12 @@ def item_represent(subject_code, wanted_sec, email, line_id, result):
 
 separate_line = '#' * 79
 
-
 logging.basicConfig(level=logging.DEBUG,
                     format='%(levelname)s %(asctime)s %(message)s')
-sys.stdout = logging
+# Redirect stdout and stderr
+sys.stdout = LogFile('stdout')
+sys.stderr = LogFile('stderr')
+
 line = Line()
 
 while True:
