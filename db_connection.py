@@ -14,6 +14,7 @@ class DbConnection(object):
             dbHost = dbHost.replace("tcp", "mongodb")
 
         connection = pymongo.MongoClient(dbHost)
+        self.con = connection
         self.db = connection[self.DB_NAME]
 
     def _query_all(self, collection):
@@ -51,4 +52,4 @@ class DbConnection(object):
         self._insert_item(item, self.QUEUE)
 
     def close(self):
-        self.db.close()
+        self.con.close()
