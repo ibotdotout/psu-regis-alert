@@ -22,4 +22,4 @@ Valid Line Input
 Valid Insert
     Go To Queue Page
     Queue Page Should Display     2557200069070119
-    [Teardown]    Close Browser
+    # [Teardown]    Close Browser

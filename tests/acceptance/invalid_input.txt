@@ -32,4 +32,4 @@ Url Failed
     Input Email   ${valid_email}
     Submit Form
     Insert Page Should Be Open and Display    url
-    [Teardown]    Close Browser
+    # [Teardown]    Close Browser
