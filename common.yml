@@ -1,17 +1,15 @@
 # template
 
-web:
-  build: .
-  command: python route.py
-  volumes:
-   - .:/app
-  ports:
-   - "80:5000"
-  environment:
-    - DEBUG=False
+version: '2'
 
-db:
-  image: mongo
-  command: mongod --smallfiles
-  expose:
-   - "27017"
+services:
+
+    web:
+      build: .
+      command: python route.py
+      environment:
+        - DEBUG=False
+
+    db:
+      image: mongo
+      command: mongod --smallfiles

@@ -1,19 +1,22 @@
 # development
 # docker-compose
+version: '2'
 
-web:
-  extends:
-    file: common.yml
-    service: web
-  links:
-    - db:db
-  environment:
-    - DEBUG=True
+services:
 
-db:
-  extends:
-    file: common.yml
-    service: db
-  command: bash -c "mongod --smallfiles & mongorestore `ls -d1 /backup/*/ | tail -1`; wait"
-  volumes:
-   - ./backup:/backup
+    web:
+      extends:
+        file: common.yml
+        service: web
+      links:
+        - db:db
+      environment:
+        - DEBUG=True
+
+    db:
+      extends:
+        file: common.yml
+        service: db
+      command: bash -c "mongod --smallfiles & mongorestore `ls -d1 /backup/*/ | tail -1`; wait"
+      volumes:
+       - ./backup:/backup

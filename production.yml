@@ -1,21 +1,37 @@
 # docker-compose -f production.yml
 
-web:
-  extends:
-    file: common.yml
-    service: web
-  links:
-    - db:db
+version: '2'
 
-db:
-  extends:
-    file: common.yml
-    service: db
+services:
+    nginx:
+      build:
+        context: nginx
+        dockerfile: Dockerfile
+      restart: always
+      depends_on:
+        - web
+      ports:
+        - "80:80"
 
-mornitor:
-  build: .
-  command: ./mornitor.py
-  volumes:
-   - .:/app
-  links:
-    - db:db
+    web:
+      extends:
+        file: common.yml
+        service: web
+      restart: always
+
+    db:
+      extends:
+        file: common.yml
+        service: db
+      volumes:
+        - mongo-data:/data/db
+      restart: always
+
+    mornitor:
+      build: .
+      command: ./mornitor.py
+      restart: always
+
+volumes:
+  mongo-data:
+    driver: local
