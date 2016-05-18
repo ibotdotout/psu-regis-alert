@@ -46,8 +46,9 @@ def _insert_to_db(params):
     avoid_keyword = ("/Student/", "/Search/")
     for keyword in avoid_keyword:
         url = url.replace(keyword, "/")
+    line_id = params.line_id if params.line_id else ""
     db.insert_item(url, subject_code, params.email,
-                   params.line_id, params.sec)
+                   line_id, params.sec)
 
 
 def display_items(items, date='date'):
