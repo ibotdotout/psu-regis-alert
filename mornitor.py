@@ -155,5 +155,5 @@ while True:
 
         logging.info(separate_line)
         db.close()
-        line.updateAuthToken()
         time.sleep(300)
+        line.updateAuthToken()
