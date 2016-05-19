@@ -155,10 +155,5 @@ while True:
 
         logging.info(separate_line)
         db.close()
-
-        try:
-            line.updateAuthToken()
-        except Exception as e:
-            logging.error("%s", e)
-
+        line.updateAuthToken()
         time.sleep(300)
