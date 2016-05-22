@@ -10,6 +10,8 @@ services:
         service: web
       links:
         - db:db
+      ports:
+        - "5000:5000"
       environment:
         - DEBUG=True
 
