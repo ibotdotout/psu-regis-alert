@@ -31,6 +31,8 @@ services:
       build: .
       command: ./mornitor.py
       restart: always
+      environment:
+        - MONGO_URL=db
 
 volumes:
   mongo-data:
