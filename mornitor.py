@@ -28,10 +28,13 @@ class LogFile(object):
 
 
 def regis_notice(item, email, line_id, subject, message):
+    footer = " \n ------------------  \n" \
+        "สนับสนุนโดย ร้านขาหมูจันโอชา เยื้องหอพักบ้านสวน" \
+        "108 มอ. หาดใหญ่  https://goo.gl/38CDIk"
     if email:
-        mail_notic(item, email, subject, message)
+        mail_notic(item, email, subject, message + footer)
     if line_id:
-        line_notice(item, line_id, subject + '\n' + message)
+        line_notice(item, line_id, subject + '\n' + message + footer)
     db.remove(item)
 
 
