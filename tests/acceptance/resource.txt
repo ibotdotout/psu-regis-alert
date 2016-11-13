@@ -57,6 +57,7 @@ Submit Form
 
 Insert Page Should Be Open And Display
     [Arguments]    ${text}
+	Wait Until Page Contains    ${text}
     Page Should Contain    ${text}
 
 Queue Page Should Display
