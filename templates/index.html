@@ -9,7 +9,7 @@
   <meta property="og:title" content="แจ้งเตือนเมื่อมีคนถอดรายวิชานั้น" />
   <meta property="og:site_name" content="PSU-Regis-Alert"/>
   <meta property="og:url" content="http://alert.im-bot.com" />
-  <meta property="og:description" content="เบื่อไหม...ที่ลงทะเบียนไม่ทัน ถ้ามีคนถอนออกไป เราจะ Line ไปบอกคุณเอง" />
+  <meta property="og:description" content="เบื่อไหม...ที่ลงทะเบียนไม่ทัน ถ้ามีคนถอนออกไป เราจะ Email ไปบอกคุณเอง" />
 
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -29,7 +29,7 @@
         }
       },
       errors: {
-        minchecked: 'กรอก email หรือ line id',
+        minchecked: 'กรอก email',
       }
     });
     var prevent=false;
@@ -109,14 +109,14 @@
                        <div class="help-block with-errors"></div>
                    </div>
                </div>
-               <div class="form-group has-feedback">
-                   <label class="control-label col-sm-2" for="line_id">Line ID:</label>
-                   <div class="col-sm-10">
-                       <input type="text" class="form-control minchecked" id="line_id_field" name="line_id" placeholder="Enter Line ID" data-minchecked="checked">
-                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                       <div class="help-block with-errors"></div>
-                   </div>
-               </div>
+               <!-- <div class="form-group has-feedback">-->
+               <!--     <label class="control-label col-sm-2" for="line_id">Line ID:</label>-->
+               <!--     <div class="col-sm-10">-->
+               <!--         <input type="text" class="form-control minchecked" id="line_id_field" name="line_id" placeholder="Enter Line ID" data-minchecked="checked">-->
+               <!--         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>-->
+               <!--         <div class="help-block with-errors"></div>-->
+               <!--     </div>-->
+               <!-- </div>-->
                <div class="form-group">
                      <div class="col-sm-offset-2 col-sm-10">
                       <button type="submit" class="btn btn-default" id="submit_button" value="submit">Submit</button>
@@ -126,27 +126,27 @@
               <h4>วิธีใช้</h4>
               <ul>
                 <li>กดติดตามความเคลื่อนไหวได้ทางเพจ <a href="http://fb.me/psuregisalert">http://fb.me/psuregisalert</a></li>
-                <li>การแจ้งเตือนผ่าน Line มีปัญหา แนะนำให้ใช้งานแจ้งเตือนผ่านอีเมล์เพื่อที่จะได้ไม่พลาดการแจ้งเตือน</li>
+                <!-- <li>การแจ้งเตือนผ่าน Line มีปัญหา แนะนำให้ใช้งานแจ้งเตือนผ่านอีเมล์เพื่อที่จะได้ไม่พลาดการแจ้งเตือน</li>-->
               </ul>
               <ol>
                   <li>เปิดหน้า sis ของวิชาที่ต้องการลงทะเทียนจากระบบค้นหาในหน้าแรกของ sis</li>
                   <li>copy URL ของหน้าวิชาที่ต้องการลงทะเบียน (ดังรูปใหญ่) มาใส่ในช่อง URL</li>
                   <li>กรอก Section ที่ต้องการ เช่น 01,02,10 หรือ * หากถ้าการทั้งหมด</li>
-                  <li>กรอก Email หรือ LineID ที่จะให้ทำการแจ้งเตือน</li>
+                  <li>กรอก Email ที่จะให้ทำการแจ้งเตือน</li>
                   <li>กด Submit แล้วรอรับการแจ้งเตือนต่อไป </li>
                   <li>หากได้รับการแจ้งเตือนแล้ว ยังไม่สามารถลงทะเบียนได้ทัน ให้กลับมากรอกฟอร์มใหม่ เพื่อรอรับการแจ้งเตือนต่อไป</li>
-                  <dt>หมายเหตุ</dt>
-                  <dd>แจ้งเตือนผ่าน Line ให้ add: psuregisalert เป็นเพื่อน แล้ว ทำการเปิด Add by ID ดังรูปก่อน</dd>
+                  <!-- <dt>หมายเหตุ</dt>-->
+                  <!-- <dd>แจ้งเตือนผ่าน Line ให้ add: psuregisalert เป็นเพื่อน แล้ว ทำการเปิด Add by ID ดังรูปก่อน</dd>-->
               </ol>
               <br><br>
-              <div class="row">
-                  <div class="col-md-6">
-                      <img src="static/line-add-friend.png" class="img-responsive" alt="line add friend">
-                  </div>
-                  <div class="col-md-6">
-                      <img src="static/line-add-by-id.png" class="img-responsive" alt="line add by id">
-                  </div>
-              </div>
+              <!-- <div class="row">-->
+              <!--     <div class="col-md-6">-->
+			  <!--         <img src="static/line-add-friend.png" class="img-responsive" alt="line add friend">-->
+              <!--     </div>-->
+              <!--     <div class="col-md-6">-->
+              <!--         <img src="static/line-add-by-id.png" class="img-responsive" alt="line add by id">-->
+              <!--     </div>-->
+              <!-- </div>-->
           </div>
         <br>
       </div>

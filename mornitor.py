@@ -4,7 +4,7 @@
 
 import alert
 import db_connection
-from line_client import Line
+# from line_client import Line
 import logging
 import urllib2
 import time
@@ -30,8 +30,8 @@ class LogFile(object):
 def regis_notice(item, email, line_id, subject, message):
     if email:
         mail_notic(item, email, subject, message)
-    if line_id:
-        line_notice(item, line_id, subject + '\n' + message)
+    # if line_id:
+        # line_notice(item, line_id, subject + '\n' + message)
     db.remove(item)
 
 
@@ -41,7 +41,7 @@ def mail_notic(item, email, subject, message):
 
 def line_notice(item, line_id, message):
     line_id = line_id.strip()
-    line.send(line_id, message)
+    # line.send(line_id, message)
 
 
 def have_wanted_sec(wanted_sec, list_rooms):
@@ -110,7 +110,7 @@ logging.basicConfig(level=logging.DEBUG,
 sys.stdout = LogFile('stdout')
 sys.stderr = LogFile('stderr')
 
-line = Line()
+# line = Line()
 
 while True:
     db = db_connection.DbConnection()
@@ -156,4 +156,4 @@ while True:
         logging.info(separate_line)
         db.close()
         time.sleep(300)
-        line.updateAuthToken()
+        # line.updateAuthToken()
