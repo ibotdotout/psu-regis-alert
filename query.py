@@ -31,6 +31,7 @@ class PsuRegisQuery(object):
         sec, reserved, study_group, regis, offer = data
         can_regis = ""
         if int(regis) < int(offer) and not reserved:
+            can_regis = "regisable"
             rooms[sec] = True
             if len(regis) < len(offer):
                 regis = "0" * (len(offer) - len(regis)) + regis
