@@ -30,7 +30,6 @@ class PsuRegisQuery(object):
     def _result_message(self, data, rooms):
         sec, reserved, study_group, regis, offer = data
         can_regis = ""
-        print regis, offer
         if int(regis) < int(offer) and not reserved:
             rooms[sec] = True
             if len(regis) < len(offer):
