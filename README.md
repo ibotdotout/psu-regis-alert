@@ -13,15 +13,34 @@ Monitoring by scraping web and using Regex to extract seats available,
 written in Python, MongoDB that contain in Docker Container.
 
 
-เผื่อใครลงทะเบียนไม่ทัน   
-แล้วต้องมาคอยเช็คดูว่ามีคนถอนออกไปบ้างไหม  
-ลองใช้เว็บนี้ดูนะ  
-http://al-bot.com  
-ระบบจะคอยเช็คให้ทุกๆ 5 นาที  
-ถ้ามียังมีพื้นที่ว่างให้สามารถลงทะเบียนได้  
-จะมี Mail/Line แจ้งไปให้ลงทะเบียน  
+เผื่อใครลงทะเบียนไม่ทัน
+แล้วต้องมาคอยเช็คดูว่ามีคนถอนออกไปบ้างไหม
+ลองใช้เว็บนี้ดูนะ
+http://al-bot.com
+ระบบจะคอยเช็คให้ทุกๆ 5 นาที
+ถ้ามียังมีพื้นที่ว่างให้สามารถลงทะเบียนได้
+จะมี Mail/Line แจ้งไปให้ลงทะเบียน
 
-เงื่อนไข:  
-1. ถ้าส่งแจ้งไปแล้ว ข้อมูลจะถูกลบออกนะครับ  
-ต้องมา add ข้อมูลใหม่ ถ้าลงไม่ทัน  
-2. ใครมีคำแนะนำไร โพสไว้ได้เลย  
+เงื่อนไข:
+1. ถ้าส่งแจ้งไปแล้ว ข้อมูลจะถูกลบออกนะครับ
+ต้องมา add ข้อมูลใหม่ ถ้าลงไม่ทัน
+2. ใครมีคำแนะนำไร โพสไว้ได้เลย
+
+# Backup via [Fabric](http://www.fabfile.org)
+
+```sh
+$ fab -i $public_key -H $user@host $target
+```
+
+# Deploy production
+
+```sh
+# up
+$ docker-compose -f production.yml up -d
+
+# restart
+$ docker-compose restart
+
+# logs morintor
+$ docker-composu -f production.yml logs -f --tail 100 mornitor
+```
