@@ -6,7 +6,7 @@ services:
 
     web:
       extends:
-        file: common.yml
+        file: docker-compose.common.yml
         service: web
       links:
         - db:db
@@ -17,7 +17,7 @@ services:
 
     db:
       extends:
-        file: common.yml
+        file: docker-compose.common.yml
         service: db
       command: bash -c "mongod --smallfiles & mongorestore `ls -d1 /backup/*/ | tail -1`; wait"
       volumes:

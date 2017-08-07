@@ -15,13 +15,13 @@ services:
 
     web:
       extends:
-        file: common.yml
+        file: docker-compose.common.yml
         service: web
       restart: always
 
     db:
       extends:
-        file: common.yml
+        file: docker-compose.common.yml
         service: db
       volumes:
         - mongo-data:/data/db
