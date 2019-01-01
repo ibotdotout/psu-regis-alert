@@ -5,15 +5,8 @@ language: python
 python:
     - "2.7"
 
-services:
-    - mongodb
-
 install:
     - pip install -r requirements.txt
 
-before_script:
-    - gunicorn route:app --log-file=- --pid=/tmp/regis-gunicorn.pid --daemon
-
 script:
     - nosetests tests/unit
-    - pybot  -d /tmp --variable SERVER:"localhost:8000" tests/acceptance/
