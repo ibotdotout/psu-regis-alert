@@ -11,7 +11,6 @@ class DbConnection(object):
     def __init__(self):
         MONGO_URL = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
         dbHost = "{0}".format(MONGO_URL)
-        print(dbHost)
         connection = pymongo.MongoClient(dbHost)
         self.con = connection
         self.db = connection[self.DB_NAME]
