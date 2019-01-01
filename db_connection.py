@@ -9,8 +9,9 @@ class DbConnection(object):
     DB_NAME = 'psuRegisAlert'
 
     def __init__(self):
-        MONGO_URL = os.getenv('MONGO_URL', 'localhost')
-        dbHost = "mongodb://{0}:27017".format(MONGO_URL)
+        MONGO_URL = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
+        dbHost = "{0}".format(MONGO_URL)
+        print(dbHost)
         connection = pymongo.MongoClient(dbHost)
         self.con = connection
         self.db = connection[self.DB_NAME]
