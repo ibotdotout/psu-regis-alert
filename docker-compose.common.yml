@@ -9,7 +9,7 @@ services:
       command: python route.py
       environment:
         - DEBUG=False
-        - MONGO_URL=db
+        - MONGO_URL=mongodb://db:27017
 
     db:
       image: mongo

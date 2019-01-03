@@ -32,7 +32,7 @@ services:
       command: ./mornitor.py
       restart: always
       environment:
-        - MONGO_URL=mongogb://db:27017
+        - MONGO_URL=mongodb://db:27017
 
 volumes:
   mongo-data:

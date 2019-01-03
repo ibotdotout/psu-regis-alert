@@ -14,11 +14,12 @@ services:
         - "5000:5000"
       environment:
         - DEBUG=True
+        - MONGO_URL=mongodb://db:27017
 
     db:
       extends:
         file: docker-compose.common.yml
         service: db
-      command: bash -c "mongod --smallfiles & mongorestore `ls -d1 /backup/*/ | tail -1`; wait"
-      volumes:
-       - ./backup:/backup
+#      command: bash -c "mongod --smallfiles & mongorestore `ls -d1 /backup/*/ | tail -1`; wait"
+#      volumes:
+#       - ./backup:/backup
